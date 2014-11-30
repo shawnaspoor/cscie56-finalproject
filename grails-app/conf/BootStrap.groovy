@@ -139,7 +139,8 @@ class BootStrap {
                 bedrooms:2,
                 baths:1,
                 landlord: tom
-        )
+        ).save()
+
         def oakgroveave = new Home (
                 propertyTitle:'Oak Grove Ave',
                 streetAddress:'1 Oak Grove Ave',
@@ -149,7 +150,7 @@ class BootStrap {
                 bedrooms:1,
                 baths:1,
                 landlord: dick
-        )
+        ).save()
         def islandhill = new Home (
                 propertyTitle:'Island Hill Ave',
                 streetAddress:'14 Island Hill Ave',
@@ -160,7 +161,7 @@ class BootStrap {
                 baths:2,
                 landlord: harry
 
-        )
+        ).save()
         def mainst = new Home (
                 propertyTitle:'Main St',
                 streetAddress:'404 Lynde St',
@@ -170,7 +171,7 @@ class BootStrap {
                 bedrooms:1,
                 baths:1,
                 landlord: mary
-        )
+        ).save()
         def westwyoming = new Home (
                 propertyTitle:'West Wyoming',
                 streetAddress:'504 West Wyoming St',
@@ -180,7 +181,7 @@ class BootStrap {
                 bedrooms:3,
                 baths:3,
                 landlord: tom
-        )
+        ).save()
 
         def lyndeSO1 = new ServiceOrder(
                 description: 'blocked toilet',
@@ -188,7 +189,7 @@ class BootStrap {
                 homes: lyndeSt,
                 tenants: andy,
                 landlord: tom
-        )
+        ).save()
 
         def westWyomingSO1 = new ServiceOrder(
                 description: 'mice in kitchen',
@@ -196,7 +197,7 @@ class BootStrap {
                 homes: westwyoming,
                 tenants: john,
                 landlord: tom
-        )
+        ).save()
 
         def oakGroveSO1 = new ServiceOrder(
                 description: 'bedroom door lock broken',
@@ -204,7 +205,7 @@ class BootStrap {
                 homes:  oakgroveave,
                 tenants: sally,
                 landlord: dick
-        )
+        ).save()
 
 
         def payment1 = new Payment(
@@ -212,14 +213,14 @@ class BootStrap {
                 paymentId: '456asv',
                 homes: oakgroveave,
                 tenant: sally
-        )
+        ).save()
 
         def payment2 = new Payment(
                 landlord: tom,
                 paymentId: '123asv',
                 homes: westwyoming,
                 tenant: andy
-        )
+        ).save()
 
         tom.addToTenants(andy)
         tom.addToTenants(john)
