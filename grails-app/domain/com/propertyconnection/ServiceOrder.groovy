@@ -13,6 +13,8 @@ class ServiceOrder {
 
 
     static constraints = {
+        landlord: true
+        tenants: false
         description nullable: false
         dateCreated nullable: true
         location nullable: false

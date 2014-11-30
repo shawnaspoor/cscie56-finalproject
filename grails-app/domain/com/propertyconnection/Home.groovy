@@ -28,7 +28,6 @@ class Home {
         bedrooms nullable:  false
         baths nullable: false
         photo nullable: true
-
         landlord nullable: false
         tenant nullable: true
         serviceOrders nullable: true

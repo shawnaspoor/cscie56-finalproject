@@ -35,6 +35,7 @@ class BootStrap {
                 dateCreated: now,
                 password: 'Password1'
         ).save(failOnError: true)
+
         def dick = new Landlord(
                 firstName: 'dick',
                 lastName:'casablancas',
@@ -45,6 +46,7 @@ class BootStrap {
 
 
         ).save(failOnError: true)
+
         def harry = new Landlord(
                 firstName: 'Harry',
                 lastName:'Trotter',
@@ -55,6 +57,7 @@ class BootStrap {
 
 
         ).save(failOnError: true)
+
         def mary = new Landlord(
                 firstName: 'Mary',
                 lastName:'Walker',
@@ -65,6 +68,7 @@ class BootStrap {
 
 
         ).save(failOnError: true)
+
         def susan = new Landlord(
                 firstName: 'Susan',
                 lastName:'Kicker',
@@ -95,6 +99,7 @@ class BootStrap {
                 password: 'Password1'
 
         ).save(failOnError: true)
+
         def don = new Tenant(
                 firstName: 'don',
                 lastName:'johnson',
@@ -104,6 +109,7 @@ class BootStrap {
                 password: 'Password1'
 
         ).save(failOnError: true)
+
         def john = new Tenant(
                 firstName: 'john',
                 lastName:'malbec',
@@ -113,6 +119,7 @@ class BootStrap {
                 password: 'Password1'
 
         ).save(failOnError: true)
+
         def andy = new Tenant(
                 firstName: 'Andrew',
                 lastName:'reeves',
@@ -129,8 +136,9 @@ class BootStrap {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1'
+                bedrooms:2,
+                baths:1,
+                landlord: tom
         )
         def oakgroveave = new Home (
                 propertyTitle:'Oak Grove Ave',
@@ -138,8 +146,9 @@ class BootStrap {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'1',
-                baths:'1'
+                bedrooms:1,
+                baths:1,
+                landlord: dick
         )
         def islandhill = new Home (
                 propertyTitle:'Island Hill Ave',
@@ -147,8 +156,10 @@ class BootStrap {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'1',
-                baths:'2'
+                bedrooms:1,
+                baths:2,
+                landlord: harry
+
         )
         def mainst = new Home (
                 propertyTitle:'Main St',
@@ -156,8 +167,9 @@ class BootStrap {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'1',
-                baths:'1'
+                bedrooms:1,
+                baths:1,
+                landlord: mary
         )
         def westwyoming = new Home (
                 propertyTitle:'West Wyoming',
@@ -165,74 +177,78 @@ class BootStrap {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'3',
-                baths:'3'
+                bedrooms:3,
+                baths:3,
+                landlord: tom
         )
 
         def lyndeSO1 = new ServiceOrder(
                 description: 'blocked toilet',
                 location: 'bathroom',
-                homes: lyndeSt
+                homes: lyndeSt,
+                tenants: andy,
+                landlord: tom
         )
 
-        def westWymoningSO1 = new ServiceOrder(
+        def westWyomingSO1 = new ServiceOrder(
                 description: 'mice in kitchen',
                 location: 'kitchen',
-                homes: westwyoming
+                homes: westwyoming,
+                tenants: john,
+                landlord: tom
         )
 
         def oakGroveSO1 = new ServiceOrder(
                 description: 'bedroom door lock broken',
                 location: 'bedroom',
-                homes:  oakgroveave
+                homes:  oakgroveave,
+                tenants: sally,
+                landlord: dick
         )
-
-
-        tom.addToTenants(andy)
-        tom.addToTenants(john)
-        tom.addToHomes(lyndeSt)
-        tom.addToHomes(westwyoming)
-        tom.addToServiceOrders(lyndeSO1)
-        tom.addToServiceOrders(westWymoningSO1)
-        tom.save(failOnError: true)
-
-        dick.addToTenants(sally)
-        dick.addToHomes(oakgroveave)
-        dick.addToServiceOrders(oakGroveSO1)
-        dick.save(failOnError: true)
-        dick.save(failOnError: true)
-        dick.save(failOnError: true)
-
-        harry.addToTenants(marcus)
-        harry.addToHomes(islandhill)
-        harry.save(failOnError: true)
-
-        mary.addToTenants(don)
-        mary.addToHomes(mainst)
-        mary.save(failOnError: true)
 
 
         def payment1 = new Payment(
                 landlord: dick,
                 paymentId: '456asv',
-                homes: oakgroveave
+                homes: oakgroveave,
+                tenant: sally
         )
-
-        sally.addToPayments(payment1)
-        sally.save(failOnError: true)
-
 
         def payment2 = new Payment(
                 landlord: tom,
                 paymentId: '123asv',
-                homes: westwyoming
+                homes: westwyoming,
+                tenant: andy
         )
 
-        andy.addToPayments(payment2)
-        andy.save(failOnError: true)
+        tom.addToTenants(andy)
+        tom.addToTenants(john)
+        tom.save(failOnError: true)
+
+        dick.addToTenants(sally)
+        dick.save(failOnError: true)
+
+        harry.addToTenants(marcus)
+        harry.save(failOnError: true)
+
+        mary.addToTenants(don)
+        mary.save(failOnError: true)
 
         islandhill.addToTenant(marcus)
         islandhill.save(failOnError: true)
+
+        lyndeSt.addToTenant(andy)
+        lyndeSt.save(failOnError: true)
+
+        oakgroveave.addToTenant(sally)
+        oakgroveave.save(failOnError: true)
+
+        mainst.addToTenant(don)
+        mainst.save(failOnError: true)
+
+        westwyoming.addToTenant(john)
+        westwyoming.save(failOnError: true)
+
 
 
     }
