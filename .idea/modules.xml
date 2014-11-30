@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/propertyconnection.iml" filepath="$PROJECT_DIR$/propertyconnection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/propertyconnection-grailsPlugins.iml" filepath="$PROJECT_DIR$/propertyconnection-grailsPlugins.iml" />
+    </modules>
+  </component>
+</project>
+

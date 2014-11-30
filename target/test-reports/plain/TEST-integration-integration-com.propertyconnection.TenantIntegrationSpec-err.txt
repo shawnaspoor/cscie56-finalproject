@@ -1,0 +1,5 @@
+--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--

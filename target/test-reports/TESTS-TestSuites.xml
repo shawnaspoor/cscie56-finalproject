@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="Shawna-PC" id="0" name="HomeIntegrationSpec" package="com.propertyconnection" tests="3" time="0.347" timestamp="2014-11-29T00:51:27">
+      <properties />
+
+      <testcase classname="com.propertyconnection.HomeIntegrationSpec" name="Saving a Home to the database" time="0.267" />
+
+      <testcase classname="com.propertyconnection.HomeIntegrationSpec" name="Updating a home and changing its properties" time="0.019" />
+
+      <testcase classname="com.propertyconnection.HomeIntegrationSpec" name="Deleting a home and making sure it&apos;s gone from the db" time="0.057" />
+
+      <system-out><![CDATA[--Output from Saving a Home to the database--
+--Output from Updating a home and changing its properties--
+--Output from Deleting a home and making sure it's gone from the db--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Saving a Home to the database--
+--Output from Updating a home and changing its properties--
+--Output from Deleting a home and making sure it's gone from the db--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="Shawna-PC" id="1" name="LandlordIntegrationSpec" package="com.propertyconnection" tests="5" time="0.118" timestamp="2014-11-29T00:51:27">
+      <properties />
+
+      <testcase classname="com.propertyconnection.LandlordIntegrationSpec" name="Saving a landlord to the database" time="0.019" />
+
+      <testcase classname="com.propertyconnection.LandlordIntegrationSpec" name="Updating a landlord and changing its properties" time="0.015" />
+
+      <testcase classname="com.propertyconnection.LandlordIntegrationSpec" name="Deleting a landlord and making sure it&apos;s gone from the db" time="0.013" />
+
+      <testcase classname="com.propertyconnection.LandlordIntegrationSpec" name="Saving a landlord with invalid properties causes an error" time="0.059" />
+
+      <testcase classname="com.propertyconnection.LandlordIntegrationSpec" name="Recover from a failed validation" time="0.009" />
+
+      <system-out><![CDATA[--Output from Saving a landlord to the database--
+--Output from Updating a landlord and changing its properties--
+--Output from Deleting a landlord and making sure it's gone from the db--
+--Output from Saving a landlord with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Saving a landlord to the database--
+--Output from Updating a landlord and changing its properties--
+--Output from Deleting a landlord and making sure it's gone from the db--
+--Output from Saving a landlord with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="Shawna-PC" id="2" name="PaymentIntegrationSpec" package="com.propertyconnection" tests="5" time="1.417" timestamp="2014-11-29T00:51:27">
+      <properties />
+
+      <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Saving a payment to the database" time="0.028" />
+
+      <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Updating a payment and changing its properties" time="0.018" />
+
+      <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Deleting a payment and making sure it&apos;s gone from the db" time="0.025" />
+
+      <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Adding a payment that links to a home" time="0.021" />
+
+      <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Ensure payments linked to a home can be retrieved" time="1.325" />
+
+      <system-out><![CDATA[--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="1" hostname="Shawna-PC" id="3" name="QueryIntegrationSpec" package="com.propertyconnection" tests="1" time="0.2" timestamp="2014-11-29T00:51:29">
+      <properties />
+
+      <testcase classname="com.propertyconnection.QueryIntegrationSpec" name="Simple field comparison" time="0.2">
+          <failure message="Condition not satisfied:&#xa;&#xa;landlords*.loginId == [&quot;Susan&quot;]&#xa;|          |       |&#xa;[]         []      false&#xa;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Condition not satisfied:
+
+landlords*.loginId == [&quot;Susan&quot;]
+|          |       |
+[]         []      false
+
+	at com.propertyconnection.QueryIntegrationSpec.Simple field comparison(QueryIntegrationSpec.groovy:15)
+</failure>
+
+      </testcase>
+
+      <system-out><![CDATA[--Output from Simple field comparison--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Simple field comparison--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="Shawna-PC" id="4" name="ServiceOrderIntegrationSpec" package="com.propertyconnection" tests="5" time="0.115" timestamp="2014-11-29T00:51:29">
+      <properties />
+
+      <testcase classname="com.propertyconnection.ServiceOrderIntegrationSpec" name="Saving a service order to the database" time="0.03" />
+
+      <testcase classname="com.propertyconnection.ServiceOrderIntegrationSpec" name="Updating a service order and changing its properties" time="0.023" />
+
+      <testcase classname="com.propertyconnection.ServiceOrderIntegrationSpec" name="Deleting a service order and making sure it&apos;s gone from the db" time="0.018" />
+
+      <testcase classname="com.propertyconnection.ServiceOrderIntegrationSpec" name="Adding a service order that links to a home" time="0.015" />
+
+      <testcase classname="com.propertyconnection.ServiceOrderIntegrationSpec" name="Ensure service orders linked to a home can be retrieved" time="0.026" />
+
+      <system-out><![CDATA[--Output from Saving a service order to the database--
+--Output from Updating a service order and changing its properties--
+--Output from Deleting a service order and making sure it's gone from the db--
+--Output from Adding a service order that links to a home--
+--Output from Ensure service orders linked to a home can be retrieved--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Saving a service order to the database--
+--Output from Updating a service order and changing its properties--
+--Output from Deleting a service order and making sure it's gone from the db--
+--Output from Adding a service order that links to a home--
+--Output from Ensure service orders linked to a home can be retrieved--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="Shawna-PC" id="5" name="TenantIntegrationSpec" package="com.propertyconnection" tests="5" time="0.056" timestamp="2014-11-29T00:51:29">
+      <properties />
+
+      <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Saving a tenant to the database" time="0.016" />
+
+      <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Updating a tenant and changing its properties" time="0.011" />
+
+      <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Deleting a tenant and making sure it&apos;s gone from the db" time="0.011" />
+
+      <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Saving a tenant with invalid properties causes an error" time="0.006" />
+
+      <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Recover from a failed validation" time="0.01" />
+
+      <system-out><![CDATA[--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-err>
+
+  </testsuite>
+</testsuites>

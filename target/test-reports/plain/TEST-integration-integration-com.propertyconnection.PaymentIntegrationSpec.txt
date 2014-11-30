@@ -1,0 +1,22 @@
+Testsuite: com.propertyconnection.PaymentIntegrationSpec
+Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 1.417 sec
+------------- Standard Output ---------------
+--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+------------- ---------------- ---------------
+
+Testcase: Saving a payment to the database took 0.028 sec
+Testcase: Updating a payment and changing its properties took 0.018 sec
+Testcase: Deleting a payment and making sure it's gone from the db took 0.025 sec
+Testcase: Adding a payment that links to a home took 0.021 sec
+Testcase: Ensure payments linked to a home can be retrieved took 1.325 sec

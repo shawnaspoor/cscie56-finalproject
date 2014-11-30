@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="Shawna-PC" name="com.propertyconnection.PaymentIntegrationSpec" tests="5" time="1.417" timestamp="2014-11-29T00:51:27">
+  <properties />
+  <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Saving a payment to the database" time="0.028" />
+  <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Updating a payment and changing its properties" time="0.018" />
+  <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Deleting a payment and making sure it&apos;s gone from the db" time="0.025" />
+  <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Adding a payment that links to a home" time="0.021" />
+  <testcase classname="com.propertyconnection.PaymentIntegrationSpec" name="Ensure payments linked to a home can be retrieved" time="1.325" />
+  <system-out><![CDATA[--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+]]></system-out>
+  <system-err><![CDATA[--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--
+]]></system-err>
+</testsuite>

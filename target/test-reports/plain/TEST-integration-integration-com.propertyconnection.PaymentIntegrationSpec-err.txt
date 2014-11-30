@@ -1,0 +1,5 @@
+--Output from Saving a payment to the database--
+--Output from Updating a payment and changing its properties--
+--Output from Deleting a payment and making sure it's gone from the db--
+--Output from Adding a payment that links to a home--
+--Output from Ensure payments linked to a home can be retrieved--

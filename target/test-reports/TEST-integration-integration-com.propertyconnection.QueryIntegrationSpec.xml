@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="1" hostname="Shawna-PC" name="com.propertyconnection.QueryIntegrationSpec" tests="1" time="0.2" timestamp="2014-11-29T00:51:29">
+  <properties />
+  <testcase classname="com.propertyconnection.QueryIntegrationSpec" name="Simple field comparison" time="0.2">
+    <failure message="Condition not satisfied:&#xa;&#xa;landlords*.loginId == [&quot;Susan&quot;]&#xa;|          |       |&#xa;[]         []      false&#xa;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Condition not satisfied:
+
+landlords*.loginId == [&quot;Susan&quot;]
+|          |       |
+[]         []      false
+
+	at com.propertyconnection.QueryIntegrationSpec.Simple field comparison(QueryIntegrationSpec.groovy:15)
+</failure>
+  </testcase>
+  <system-out><![CDATA[--Output from Simple field comparison--
+]]></system-out>
+  <system-err><![CDATA[--Output from Simple field comparison--
+]]></system-err>
+</testsuite>

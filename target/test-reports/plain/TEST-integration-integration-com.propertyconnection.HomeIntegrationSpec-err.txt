@@ -1,0 +1,3 @@
+--Output from Saving a Home to the database--
+--Output from Updating a home and changing its properties--
+--Output from Deleting a home and making sure it's gone from the db--

@@ -1,0 +1,22 @@
+Testsuite: com.propertyconnection.TenantIntegrationSpec
+Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0.056 sec
+------------- Standard Output ---------------
+--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+------------- ---------------- ---------------
+
+Testcase: Saving a tenant to the database took 0.016 sec
+Testcase: Updating a tenant and changing its properties took 0.011 sec
+Testcase: Deleting a tenant and making sure it's gone from the db took 0.011 sec
+Testcase: Saving a tenant with invalid properties causes an error took 0.006 sec
+Testcase: Recover from a failed validation took 0.01 sec

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="Shawna-PC" name="com.propertyconnection.TenantIntegrationSpec" tests="5" time="0.056" timestamp="2014-11-29T00:51:29">
+  <properties />
+  <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Saving a tenant to the database" time="0.016" />
+  <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Updating a tenant and changing its properties" time="0.011" />
+  <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Deleting a tenant and making sure it&apos;s gone from the db" time="0.011" />
+  <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Saving a tenant with invalid properties causes an error" time="0.006" />
+  <testcase classname="com.propertyconnection.TenantIntegrationSpec" name="Recover from a failed validation" time="0.01" />
+  <system-out><![CDATA[--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-out>
+  <system-err><![CDATA[--Output from Saving a tenant to the database--
+--Output from Updating a tenant and changing its properties--
+--Output from Deleting a tenant and making sure it's gone from the db--
+--Output from Saving a tenant with invalid properties causes an error--
+--Output from Recover from a failed validation--
+]]></system-err>
+</testsuite>
