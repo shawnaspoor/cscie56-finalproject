@@ -1,0 +1,11 @@
+*.iws
+*Db.properties
+*Db.script
+*.log
+.DS_Store
+.settings
+/.link_to_grails_plugins/
+/cobertura.ser
+/out/
+/target/
+/target-eclipse/
