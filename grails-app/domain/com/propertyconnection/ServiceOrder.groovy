@@ -8,13 +8,14 @@ class ServiceOrder {
     byte[] photo
 
     static belongsTo = [homes : Home]
-    static  hasOne  = [landlord: Landlord, tenants: Tenant]
+    static hasOne  = [landlord: Landlord, tenants: Tenant]
 
 
 
     static constraints = {
-        landlord: true
-        tenants: false
+        homes nullable: false
+        landlord nullable: false
+        tenants nullable: false
         description nullable: false
         dateCreated nullable: true
         location nullable: false

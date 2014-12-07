@@ -39,9 +39,11 @@ class ServiceOrderIntegrationSpec  extends Specification {
     def "Saving a service order to the database" () {
         given: "A new service order"
         def serviceOrder = new ServiceOrder(
+                tenants: sally,
                 description: 'toilet is broken',
                 location: 'mail bathroom',
-                homes: lyndeSt
+                homes: lyndeSt,
+                landlord: charlie
         )
 
         when: "The service order is saved"
@@ -56,9 +58,11 @@ class ServiceOrderIntegrationSpec  extends Specification {
     def "Updating a service order and changing its properties" () {
         given: "A service order"
         def existingServiceOrder = new ServiceOrder(
+                tenants: sally,
                 description: 'toilet is broken',
                 location: 'mail bathroom',
-                homes: lyndeSt
+                homes: lyndeSt,
+                landlord: charlie
         )
         existingServiceOrder.save(failOnError: true)
 
@@ -75,9 +79,11 @@ class ServiceOrderIntegrationSpec  extends Specification {
     def "Deleting a service order and making sure it's gone from the db" () {
         given: "A new service order"
         def serviceOrder = new ServiceOrder(
+                tenants: sally,
                 description: 'toilet is broken',
                 location: 'mail bathroom',
-                homes: lyndeSt
+                homes: lyndeSt,
+                landlord: charlie
         )
         serviceOrder.save(failOnError: true)
 
@@ -108,8 +114,10 @@ class ServiceOrderIntegrationSpec  extends Specification {
 
         when: "A service order is added"
         lynde.addToServiceOrders(new ServiceOrder(
+                tenants: sally,
                 description: 'toilet is broken',
-                location: 'mail bathroom' ))
+                location: 'mail bathroom',
+                landlord: charlie))
 
         then: "The home has a list of service orders attached"
         1 == Home.get(lynde.id).serviceOrders.size()
@@ -130,8 +138,10 @@ class ServiceOrderIntegrationSpec  extends Specification {
                 tenant: sally
         )
         lynde.addToServiceOrders(new ServiceOrder(
+                tenants: sally,
                 description: 'toilet is broken',
-                location: 'main bathroom' )
+                location: 'main bathroom',
+                landlord: charlie)
         )
         lynde.save(failOnError: true)
 
