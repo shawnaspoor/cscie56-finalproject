@@ -16,7 +16,7 @@ class TenantService {
     static Home getHome (String loginId){
         def tenant = Tenant.findByLoginId(loginId)
         if(tenant){
-            def home = Home.findByTenant(tenant)
+            def home = tenant.homes
             if(home) {
                 return home
             }
@@ -26,7 +26,7 @@ class TenantService {
     }
 
     static Landlord getLandlord (String loginId){
-        def home = Tenant.findByLoginId("shawna")
+        def home = Tenant.findByLoginId(loginId)
         if(home){
             def landlord = home.landlord
             if(landlord) {

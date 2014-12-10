@@ -4,10 +4,10 @@
         <meta name ="layout" content="main" />
     </head>
     <body>
-        <h3>Register as a tenant now</h3>
+        <h3>Register as a landlord now</h3>
         <g:hasErrors>
             <div class="errors">
-                <g:renderErrors bean="${tenant}" as="list" />
+                <g:renderErrors bean="${landlord}" as="list" />
             </div>
         </g:hasErrors>
         <g:if test="${flash.message}">

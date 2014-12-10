@@ -88,7 +88,7 @@ class ServiceOrderControllerSpec extends Specification {
         response.redirectedUrl == '/serviceOrder/listing/shawna'
     }
 
-/*/*
+/*
       def "Add a valid new service order"() {
           given: "A tenant with service orders in the database"
           Tenant shawna = new Tenant (
@@ -115,7 +115,7 @@ class ServiceOrderControllerSpec extends Specification {
           response.redirectedUrl == "/serviceOrder/listing/${shawna.loginId}"
          erviceOrder.countByTenants(shawna) == 1
       }
-  /*
+
       def "Add an invalid new service order"() {
           given: "A tenant with service orders in the database"
           Tenant shawna = new Tenant (
@@ -142,7 +142,43 @@ class ServiceOrderControllerSpec extends Specification {
           response.redirectedUrl == "/serviceOrder/listing/${shawna.loginId}"
           ServiceOrder.countByTenants(shawna) == 0
       }
-  */
+*/
+    def "Add an invalid new service order"() {
+        given: "a tenant with service orders"
+        Tenant shawna = new Tenant (
+                firstName: 'Shawna',
+                lastName: 'Spoor',
+                email: 'shawnaspoor@gmail.com',
+                dateCreated: newDate,
+                password:  'password',
+                loginId: 'shawna'
+        ).save(failOnError: true)
+
+        and: "A service order service that throws an exception with the input"
+        def errorMsg = "Invalid or empty field(s)"
+        def mockServiceOrderService = Mock(ServiceOrderService)
+        controller.serviceOrderService = mockServiceOrderService
+        1 * mockServiceOrderService.createServiceOrder(null, "bathroom", shawna.loginId) >>{
+            throw new ServiceOrderException(message: errorMsg)
+        }
+
+        and: "A loginId"
+        params.id = shawna.loginId
+
+        and: "Some content for the service order"
+        params.description = null
+        params.location = "bathroom"
+
+        when:"the controller is called"
+        def result = controller.createServiceOrder()
+
+        then: "redirected to the listing, flash notification ok"
+        flash.message == errorMsg
+        response.redirectedUrl == "/serviceOrder/listing/shawna"
+        ServiceOrder.countByTenants(shawna) == 0
+    }
+
+
     @Unroll
     def "testing id"() {
         given:"an id supplied via params"

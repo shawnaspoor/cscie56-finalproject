@@ -17,6 +17,8 @@
                     <br/>
                    Description: ${serviceOrder.description}
                    <hr>
+                    <br/>
+                    <br/>
                 </div>
             </div>
         </g:each>

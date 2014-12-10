@@ -25,6 +25,15 @@ class ServiceOrderController {
         }
     }
 
+    def sos() {
+        if(!session.tenant){
+            redirect controller: "login", action: "form"
+            return
+        }else {
+            render view: "listing", model:[tenant: session.tenant.refresh()]
+        }
+    }
+
     def createServiceOrder(String description, String location, String id) {
             try{
                 def newServiceOrder = serviceOrderService.createServiceOrder(description, location, id)
