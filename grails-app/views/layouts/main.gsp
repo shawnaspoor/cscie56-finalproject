@@ -17,15 +17,7 @@
                 <g:img id="logo" uri="${assetPath(src:'propertyconnection.png')}" alt="Property Connection Logo" style="max-height: 120px; margin-bottom: 5px;"/>
             </g:link>
         </div>
-        <nav:primary/>
-        <nav:secondary/>
-        <div>
-        <div id="tenant-nav">
-            <nav:menu scope="tenant"/>
-        </div>
-        <div id="landlord-nav">
-            <nav:menu scope="landlord"/>
-        </div>
+
         <g:layoutBody/>
         </div>
         <div id="footer">

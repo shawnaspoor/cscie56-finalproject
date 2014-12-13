@@ -73,7 +73,7 @@ class LandlordController {
             } catch (HomeException he) {
                 flash.message = he.message
             }
-            redirect(action: 'homes', loginId: id )
+            redirect(action: 'homes', id: id )
         }
 
 
