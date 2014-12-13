@@ -16,6 +16,8 @@
                    Location: ${serviceOrder.location}
                     <br/>
                    Description: ${serviceOrder.description}
+                    <br/>
+                   This was submitted: <pc:dateFrom date="${serviceOrder.dateCreated}"/>
                    <hr>
                     <br/>
                     <br/>
