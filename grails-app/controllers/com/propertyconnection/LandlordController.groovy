@@ -7,11 +7,12 @@ class LandlordController {
 
     def homeService
 
-    def home() {
-        if(!params.id){
-            params.id = "shawna"
+    def home(String id) {
+        def landlord = Landlord.findByLoginId(id)
+        if(!id){
+            id = "shawna"
         }
-        redirect(action:'listing', params: params)
+        redirect(action:'profile', id: id)
     }
 
 
@@ -64,15 +65,15 @@ class LandlordController {
 
 
         def createHome(String propertyTitle, String streetAddress,
-                   String city, String zipcode, Integer bedrooms, Integer baths, byte[] photo, String id) {
+                   String city, String zipcode, Integer bedrooms, Integer baths, String id) {
             try{
-                def newHome = homeService.createHome( propertyTitle, streetAddress,
-                        city, zipcode, bedrooms, baths, photo, id)
+                def newHome = homeService.createHome(propertyTitle, streetAddress,
+                        city, zipcode, bedrooms, baths, id)
                 flash.message = "Added a new home: ${newHome.propertyTitle}"
             } catch (HomeException he) {
                 flash.message = he.message
             }
-            redirect(action: 'homes', id: id )
+            redirect(action: 'homes', loginId: id )
         }
 
 

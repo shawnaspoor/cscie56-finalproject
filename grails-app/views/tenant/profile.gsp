@@ -13,5 +13,10 @@
         <p>Put everything else here...</p>
     </div>
 
+    <div id="allServiceOrders">
+        <g:render template="/serviceOrder/serviceOrderList" collection="${profile.serviceOrders}"
+                  var="serviceOrder" max="5" />
+    </div>
+
 </body>
 </html>

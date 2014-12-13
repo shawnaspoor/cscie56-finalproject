@@ -11,6 +11,10 @@
         </g:if>
         <p>Profile for <strong>${profile.firstName}</strong></p>
         <p>Put everything else here...</p>
+
+        <div id="allServiceOrders">
+            <g:render template="/serviceOrder/serviceOrderList" collection="${}" var="serviceOrder" />
+        </div>
     </div>
 
 </body>

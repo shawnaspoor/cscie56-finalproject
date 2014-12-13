@@ -8,22 +8,7 @@
 <body>
 <h3>Service Orders</h3>
     <div id="allServiceOrders">
-        <g:each in="${tenant.serviceOrders}" var ="serviceOrder">
-            <div class="serviceOrderItem">
-                <div class ="serviceOrderDetails">
-                    ID:  ${serviceOrder.id}
-                    <br/>
-                   Location: ${serviceOrder.location}
-                    <br/>
-                   Description: ${serviceOrder.description}
-                    <br/>
-                   This was submitted: <pc:dateFrom date="${serviceOrder.dateCreated}"/>
-                   <hr>
-                    <br/>
-                    <br/>
-                </div>
-            </div>
-        </g:each>
+       <g:render template="serviceOrderList" collection="${tenant.serviceOrders}" var="serviceOrder" />
     </div>
     <g:if test ="${flash.message}">
         <div class="flash">
