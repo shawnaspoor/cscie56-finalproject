@@ -11,7 +11,8 @@ class Home {
     byte[] photo
 
     static belongsTo = [landlord: Landlord]
-    static hasMany = [serviceOrders: ServiceOrder, tenant: Tenant, payments: Payment]
+    static hasMany = [serviceOrders: ServiceOrder,payments: Payment]
+    static hasOne = [tenant: Tenant]
 
     static mapping = {
         serviceOrders cascade: "all-delete-orphan"
@@ -28,7 +29,6 @@ class Home {
         bedrooms nullable:  false
         baths nullable: false
         photo nullable: true
-        landlord nullable: false
         tenant nullable: true
         serviceOrders nullable: true
     }

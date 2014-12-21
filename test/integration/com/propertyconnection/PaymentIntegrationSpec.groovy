@@ -5,35 +5,36 @@ import spock.lang.*
 
 class PaymentIntegrationSpec extends Specification {
 
-    def charlie = new Landlord(
-            firstName: 'Charlie',
-            lastName: 'Booker',
-            email: 'charlie@gmail.com',
-            password:  'password',
-            loginId: 'charliebooker'
-
-    ).save()
-    def sally = new Tenant(
-            firstName: 'Sally',
-            lastName: 'Rider',
-            email: 'sally@gmail.com',
-            password:  'password',
-            loginId: 'rideSallyride'
-
-    ).save()
-    def lyndeSt = new Home(
-            propertyTitle:'Lynde St',
-            streetAddress:'29 Lynde St',
-            //state nullable: false
-            city: 'Melrose',
-            zipcode:'02176',
-            bedrooms:'2',
-            baths:'1',
-            landlord: charlie,
-            tenant: sally
-    ).save()
 
     def "Saving a payment to the database" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save(failOnError: true)
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save(failOnError: true)
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save(failOnError: true)
+
         given: "A new payment"
         def payment1 = new Payment(
                 landlord: charlie,
@@ -52,6 +53,34 @@ class PaymentIntegrationSpec extends Specification {
     }
 
     def "Updating a payment and changing its properties" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save(failOnError: true)
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save(failOnError: true)
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save(failOnError: true)
+
         given: "A payment"
         def existingPayment = new Payment(
                 landlord: charlie,
@@ -72,6 +101,34 @@ class PaymentIntegrationSpec extends Specification {
     }
 
     def "Deleting a payment and making sure it's gone from the db" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save(failOnError: true)
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save(failOnError: true)
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save(failOnError: true)
+
         given: "A new payment"
         def payment2 = new Payment(
                 landlord: charlie,
@@ -93,6 +150,34 @@ class PaymentIntegrationSpec extends Specification {
 
 
     def "Adding a payment that links to a home"() {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save(failOnError: true)
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save(failOnError: true)
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save(failOnError: true)
+
         given: "A brand new payment"
         def lynde = new Home(
                 propertyTitle:'Lynde St',
@@ -118,6 +203,34 @@ class PaymentIntegrationSpec extends Specification {
     }
 
     def "Ensure payments linked to a home can be retrieved"() {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save(failOnError: true)
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save(failOnError: true)
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save(failOnError: true)
+
         given: "A home with a service order"
         def lynde = new Home(
                 propertyTitle:'Lynde St',
@@ -143,7 +256,7 @@ class PaymentIntegrationSpec extends Specification {
             it.paymentId
         }.sort()
 
-        then: "Thepayment appears on the home's listing"
+        then: "The payment appears on the home's listing"
         sortedPaymentPaymentId == ['123asv']
 
 

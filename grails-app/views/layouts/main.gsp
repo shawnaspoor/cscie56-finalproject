@@ -21,8 +21,8 @@
         <g:layoutBody/>
         </div>
         <div id="footer">
-            <div id="footer-nav">
-                <nav:menu scope="footer"/>
+
+
             </div>
             <footer>Property Connection - Bringing landlords and tenants together since 2014.</footer>
         </div>

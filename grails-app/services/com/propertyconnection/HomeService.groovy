@@ -14,7 +14,7 @@ class HomeService {
             def landlord = Landlord.findByLoginId(id)
             if(landlord){
                 def home = new Home(propertyTitle: propertyTitle, streetAddress: streetAddress, city: city,
-                zipcode: zipcode, bedrooms: bedrooms, baths: baths, )
+                zipcode: zipcode, bedrooms: bedrooms, baths: baths )
                 landlord.addToHomes(home)
                 if(home.validate() && home.save()) {
                     return home

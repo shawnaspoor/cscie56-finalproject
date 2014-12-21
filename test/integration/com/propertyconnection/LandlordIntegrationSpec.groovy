@@ -3,6 +3,7 @@ package com.propertyconnection
 import spock.lang.*
 
 class LandlordIntegrationSpec extends Specification {
+
     Date newDate = new Date()
 
     def "Saving a landlord to the database" () {
@@ -76,8 +77,8 @@ class LandlordIntegrationSpec extends Specification {
                 lastName: 'Booker',
                 email: 'charlie@gmail.com',
                 dateCreated: newDate,
-                password:  'cb',
-                loginId: 'charliebooker'
+                password:  'password1',
+                loginId: 'cb'
         )
 
         when:"The landlord is validated"
@@ -86,9 +87,9 @@ class LandlordIntegrationSpec extends Specification {
         then:
         newLandlord.hasErrors()
 
-        "size.toosmall" == newLandlord.errors.getFieldError("password").code
-        "cb"== newLandlord.errors.getFieldError("password").rejectedValue
-        !newLandlord.errors.getFieldError("loginId")
+        "size.toosmall" == newLandlord.errors.getFieldError("loginId").code
+        "cb"== newLandlord.errors.getFieldError("loginId").rejectedValue
+        !newLandlord.errors.getFieldError("email")
     }
 
     def "Recover from a failed validation"() {
@@ -97,19 +98,20 @@ class LandlordIntegrationSpec extends Specification {
                 firstName: 'Charlie',
                 lastName: 'Booker',
                 email: 'charlie@gmail.com',
-                password:  'cb',
-                loginId: 'charliebooker'
+                password:  'password1',
+                loginId: 'cb'
         )
         assert issues.save() == null
         assert issues.hasErrors()
 
         when: "the invalid properties are fixed"
-        issues.password = "Password1"
+        issues.loginId = "charles"
         issues.validate()
 
         then: "the user saves with the updated info and validates"
         !issues.hasErrors()
         issues.save()
     }
+
 
 }

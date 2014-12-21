@@ -1,15 +1,13 @@
 package com.propertyconnection
 
-class Tenant {
-
+class Tenant extends User{
     String firstName
     String lastName
     String email
-    String password
-    String loginId
-    Date dateCreated
     byte[] photo
-    static belongsTo = [landlord : Landlord, homes: Home]
+
+    static belongsTo = [homes: Home]
+    static hasOne = [landlord : Landlord]
     static hasMany = [messages: Message, serviceOrders: ServiceOrder, payments: Payment ]
 
     static mapping = {
@@ -19,20 +17,15 @@ class Tenant {
 
 
     static constraints = {
-
-        importFrom Landlord, include:['password']
-        importFrom Landlord, include: ['photo']
         firstName blank: false
         lastName blank: false
-        loginId nullable: false
-        email email: true, blank: false, nullable: false
-        dateCreated nullable: true
+        email email: true, blank: false
         homes nullable: true //homes nullable true for when the tenant leaves but the tenant wishes to keep their info on file
         landlord nullable: true //landlord nullable true for when a tenant leaves but the tenant wishes to keep their info on file
         messages nullable: true
         serviceOrders nullable: true
         payments nullable: true
-
+        photo nullable: true, maxSize: 2 * 1024 * 1024
     }
 
 

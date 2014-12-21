@@ -27,7 +27,19 @@ class HomeController {
 
         }
     }
+/*
 
+    def createHome(String propertyTitle, String streetAddress,
+                   String city, String zipcode, Integer bedrooms, Integer baths, String id) {
+        try{
+            def newHome = homeService.createHome(propertyTitle, streetAddress,
+                    city, zipcode, bedrooms, baths, id)
+            flash.message = "Added a new home: ${newHome.propertyTitle}"
+        } catch (HomeException he) {
+            flash.message = he.message
+        }
+        redirect(action: 'homes', id: id )
+    }
 
-
+*/
 }

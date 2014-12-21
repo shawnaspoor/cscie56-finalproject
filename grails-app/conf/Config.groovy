@@ -118,3 +118,47 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.propertyconnection.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.propertyconnection.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.propertyconnection.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/assets/**':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.propertyconnection.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.propertyconnection.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.propertyconnection.Role'
+grails.plugin.springsecurity.userLookup.usernamePropertyName = "loginId"
+grails.plugin.springsecurity.userLookup.passwordPropertyName = "password"
+
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.interceptUrlMap = [
+        '/':                              ['permitAll'],
+        '/index':                         ['permitAll'],
+        '/index.gsp':                     ['permitAll'],
+        '/user/register*':                ['permitAll'],
+        '/login/**':                      ['permitAll'],
+        '/logout/**':                     ['permitAll'],
+        '/**/js/**':                      ['permitAll'],
+        '/**/css/**':                     ['permitAll'],
+        '/**/images/**':                  ['permitAll'],
+        '/user/**':                       ['hasRole("ROLE_ADMIN")'],
+        '/role/**':                       ['hasRole("ROLE_ADMIN")'],
+        '/**':                            ['isAuthenticated()']
+]
+
+grails.plugin.springsecurity.auth.loginFormUrl = "/login/form"
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/"
+

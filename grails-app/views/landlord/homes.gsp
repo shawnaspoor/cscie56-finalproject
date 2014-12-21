@@ -28,7 +28,7 @@
 <g:if test="${flash.message}">
     <div class="flash">${flash.message}</div>
 </g:if>
-<g:form action="createHome">
+<g:form action="createHome"  id="${params.id}">
     <fieldset class="form">
         <div class="fieldcontain required">
             <label for="propertyTitle">Property Title</label>

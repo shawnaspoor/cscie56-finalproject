@@ -1,13 +1,9 @@
 package com.propertyconnection
 
-class Landlord {
-
+class Landlord extends User{
     String firstName
     String lastName
     String email
-    String password
-    String loginId
-    Date dateCreated
     byte[] photo
 
     static hasMany = [homes : Home, messages: Message, serviceOrders: ServiceOrder,
@@ -22,17 +18,13 @@ class Landlord {
     static constraints = {
         firstName blank: false
         lastName blank: false
-        loginId nullable: false
         email email: true, blank: false
-        dateCreated nullable: true
-        password blank: false, size: 8..15, validator: {passwd, landlord -> passwd !=landlord.loginId}
-        photo nullable: true, maxSize: 2 * 1024 * 1024
         homes nullable: true
         tenants nullable: true
         messages nullable: true
         serviceOrders nullable: true
         payments nullable: true
-
+        photo nullable: true, maxSize: 2 * 1024 * 1024
     }
 
 }

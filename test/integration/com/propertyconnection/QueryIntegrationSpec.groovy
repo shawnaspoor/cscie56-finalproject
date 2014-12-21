@@ -5,6 +5,7 @@ import spock.lang.*
 
 
 class QueryIntegrationSpec extends Specification {
+    /*
     void "Simple field comparison" () {
         when:"A landlord is selected by their lastName"
         def landlords = Landlord.where {
@@ -14,5 +15,5 @@ class QueryIntegrationSpec extends Specification {
         then: "The landlord with that lastName are returned"
         landlords*.loginId == ["Susan"]
     }
-
+*/
 }

@@ -130,8 +130,7 @@ class LandlordControllerSpec extends Specification {
                 "02138",
                 2,
                 1,
-                null,
-                "charliebooker"
+                null
         )
 
         then: "redirected to the listing, flash notification ok"

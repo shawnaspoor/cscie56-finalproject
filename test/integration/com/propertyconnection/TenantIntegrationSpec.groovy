@@ -3,15 +3,16 @@ package com.propertyconnection
 import spock.lang.*
 
 class TenantIntegrationSpec extends Specification {
+
     def "Saving a tenant to the database" () {
         given: "A new tenant"
         def sally = new Tenant(
                 firstName: 'Sally',
                 lastName: 'Rider',
                 email: 'sally@gmail.com',
-                dateCreated: 'Thu Nov 27 09:17:45 EST 2014',
+                dateCreated: new Date(),
                 password:  'password',
-                loginId: 'rideSallyride'
+                loginId: 'Sallyride'
 
         )
 
@@ -30,9 +31,9 @@ class TenantIntegrationSpec extends Specification {
                 firstName: 'Sally',
                 lastName: 'Rider',
                 email: 'sally@gmail.com',
-                dateCreated: 'Thu Nov 27 08:17:45 EST 2014',
+                dateCreated: new Date(),
                 password:  'password',
-                loginId: 'rideSallyride'
+                loginId: 'sallyride'
         )
         existingTenant.save(failOnError: true)
 
@@ -52,9 +53,9 @@ class TenantIntegrationSpec extends Specification {
                 firstName: 'Sally',
                 lastName: 'Rider',
                 email: 'sally@gmail.com',
-                dateCreated: 'Thu Nov 27 08:17:45 EST 2014',
+                dateCreated: new Date(),
                 password:  'password',
-                loginId: 'rideSallyride'
+                loginId: 'rideride'
         )
         newTenant.save(failOnError: true)
 
@@ -73,8 +74,9 @@ class TenantIntegrationSpec extends Specification {
                 firstName: 'Sally',
                 lastName: 'Rider',
                 email: 'sally@gmail.com',
+                dateCreate: new Date(),
                 password:  'sr',
-                loginId: 'rideSallyride'
+                loginId: 'sr'
         )
 
         when:"The tenant is validated"
@@ -83,9 +85,9 @@ class TenantIntegrationSpec extends Specification {
         then:
         newTenant.hasErrors()
 
-        "size.toosmall" == newTenant.errors.getFieldError("password").code
-        "sr"== newTenant.errors.getFieldError("password").rejectedValue
-        !newTenant.errors.getFieldError("loginId")
+        "size.toosmall" == newTenant.errors.getFieldError("loginId").code
+        "sr"== newTenant.errors.getFieldError("loginId").rejectedValue
+        !newTenant.errors.getFieldError("firstName")
     }
 
     def "Recover from a failed validation"() {
@@ -95,18 +97,19 @@ class TenantIntegrationSpec extends Specification {
                 lastName: 'Rider',
                 email: 'sally@gmail.com',
                 password:  'sr',
-                loginId: 'rideSallyride'
+                loginId: 's'
         )
         assert issuesTenant.save() == null
         assert issuesTenant.hasErrors()
 
         when: "the invalid properties are fixed"
-        issuesTenant.password = "Password1"
+        issuesTenant.loginId = "riderSally"
         issuesTenant.validate()
 
         then: "the user saves with the updated info and validates"
         !issuesTenant.hasErrors()
         issuesTenant.save()
     }
+
 
 }

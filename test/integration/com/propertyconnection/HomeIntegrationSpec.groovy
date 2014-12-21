@@ -1,31 +1,28 @@
 package com.propertyconnection
 
-import grails.test.spock.IntegrationSpec
 import spock.lang.*
 
 class HomeIntegrationSpec extends Specification {
-
-    def charlie = new Landlord(
-            firstName: 'Charlie',
-            lastName: 'Booker',
-            email: 'charlie@gmail.com',
-            dateCreated: 'Thu Nov 27 09:17:45 EST 2014',
-            password:  'password',
-            loginId: 'charliebooker'
-
-    ).save()
-    def sally = new Tenant(
-            firstName: 'Sally',
-            lastName: 'Rider',
-            email: 'sally@gmail.com',
-            dateCreated: 'Thu Nov 27 09:17:45 EST 2014',
-            password:  'password',
-            loginId: 'rideSallyride'
-
-    ).save()
-
-
     def "Saving a Home to the database" () {
+        def tom = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'tom'
+        ).save(failOnError: true)
+
+        def peter = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'peter'
+
+        ).save(failOnError: true)
+
         given: "A new home"
         def lynde = new Home(
                 propertyTitle:'Lynde St',
@@ -33,10 +30,10 @@ class HomeIntegrationSpec extends Specification {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1',
-                landlord: charlie,
-                tenant: sally
+                bedrooms:2,
+                baths:1,
+                landlord: tom,
+                tenant: peter
         )
 
         when: "The home is saved"
@@ -49,19 +46,38 @@ class HomeIntegrationSpec extends Specification {
     }
 
     def "Updating a home and changing its properties" () {
+        def dick = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'dick'
+
+        ).save(failOnError: true)
+
+        def paul = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'paul'
+
+        ).save(failOnError: true)
+
         given: "A home"
         def existingHome = new Home(
-                propertyTitle:'Lynde St',
-                streetAddress:'29 Lynde St',
+                propertyTitle:'Oak Grove',
+                streetAddress:'29 oak grove St',
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1',
-                landlord: charlie,
-                tenant: sally
-        )
-        existingHome.save(failOnError: true)
+                bedrooms:2,
+                baths:1,
+                landlord: dick,
+                tenant: paul
+        ).save(failOnError: true)
 
         when: "The home has its properties changed"
         def chosenHome = Home.get(existingHome.id)
@@ -74,19 +90,38 @@ class HomeIntegrationSpec extends Specification {
     }
 
     def "Deleting a home and making sure it's gone from the db" () {
+        def harry = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'harry'
+
+        ).save(failOnError: true)
+
+        def mary = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'mary'
+
+        ).save(failOnError: true)
+
         given: "A home"
         def newHome = new Home(
-                propertyTitle:'Lynde St',
-                streetAddress:'29 Lynde St',
+                propertyTitle:'Main St',
+                streetAddress:'29 Main St',
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1',
-                landlord: charlie,
-                tenant: sally
-        )
-        newHome.save(failOnError: true)
+                bedrooms:2,
+                baths:1,
+                tenant: mary,
+                landlord: harry
+        ).save(failOnError: true)
 
         when: "The home is deleted"
         def chosenHome = Home.get(newHome.id)
@@ -97,5 +132,4 @@ class HomeIntegrationSpec extends Specification {
         then: "The home is removed from the database"
         !Home.exists(chosenHome.id)
     }
-
 }

@@ -5,38 +5,40 @@ import spock.lang.*
 
 class ServiceOrderIntegrationSpec  extends Specification {
 
-
-    def charlie = new Landlord(
-            firstName: 'Charlie',
-            lastName: 'Booker',
-            email: 'charlie@gmail.com',
-            dateCreated: 'Thu Nov 27 09:17:45 EST 2014',
-            password:  'password',
-            loginId: 'charliebooker'
-
-    ).save()
-    def sally = new Tenant(
-            firstName: 'Sally',
-            lastName: 'Rider',
-            email: 'sally@gmail.com',
-            dateCreated: 'Thu Nov 27 09:17:45 EST 2014',
-            password:  'password',
-            loginId: 'rideSallyride'
-
-    ).save()
-    def lyndeSt = new Home(
-            propertyTitle:'Lynde St',
-            streetAddress:'29 Lynde St',
-            //state nullable: false
-            city: 'Melrose',
-            zipcode:'02176',
-            bedrooms:'2',
-            baths:'1',
-            landlord: charlie,
-            tenant: sally
-    ).save()
-
     def "Saving a service order to the database" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+
+
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save()
+
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save()
+
         given: "A new service order"
         def serviceOrder = new ServiceOrder(
                 tenants: sally,
@@ -56,6 +58,39 @@ class ServiceOrderIntegrationSpec  extends Specification {
     }
 
     def "Updating a service order and changing its properties" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+
+
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save()
+
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save()
+
         given: "A service order"
         def existingServiceOrder = new ServiceOrder(
                 tenants: sally,
@@ -77,6 +112,39 @@ class ServiceOrderIntegrationSpec  extends Specification {
     }
 
     def "Deleting a service order and making sure it's gone from the db" () {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+
+
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save()
+
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save()
+
         given: "A new service order"
         def serviceOrder = new ServiceOrder(
                 tenants: sally,
@@ -99,6 +167,39 @@ class ServiceOrderIntegrationSpec  extends Specification {
 
 
     def "Adding a service order that links to a home"() {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+
+
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save()
+
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save()
+
         given: "A brand new service order"
         def lynde = new Home(
                 propertyTitle:'Lynde St',
@@ -106,8 +207,8 @@ class ServiceOrderIntegrationSpec  extends Specification {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1',
+                bedrooms:2,
+                baths:1,
                 landlord: charlie,
                 tenant: sally
         ).save(failOnError: true)
@@ -125,6 +226,39 @@ class ServiceOrderIntegrationSpec  extends Specification {
     }
 
     def "Ensure service orders linked to a home can be retrieved"() {
+        def charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+
+
+        def sally = new Tenant(
+                firstName: 'Sally',
+                lastName: 'Rider',
+                email: 'sally@gmail.com',
+                dateCreated: new Date(),
+                password:  'password',
+                loginId: 'rideSallyride'
+
+        ).save()
+
+        def lyndeSt = new Home(
+                propertyTitle:'Lynde St',
+                streetAddress:'29 Lynde St',
+                //state nullable: false
+                city: 'Melrose',
+                zipcode:'02176',
+                bedrooms:2,
+                baths:1,
+                landlord: charlie,
+                tenant: sally
+        ).save()
+
         given: "A home with a service order"
         def lynde = new Home(
                 propertyTitle:'Lynde St',
@@ -132,8 +266,8 @@ class ServiceOrderIntegrationSpec  extends Specification {
                 //state nullable: false
                 city: 'Melrose',
                 zipcode:'02176',
-                bedrooms:'2',
-                baths:'1',
+                bedrooms:2,
+                baths:1,
                 landlord: charlie,
                 tenant: sally
         )

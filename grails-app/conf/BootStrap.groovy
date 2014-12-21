@@ -3,18 +3,19 @@ import com.propertyconnection.Landlord
 import com.propertyconnection.Payment
 import com.propertyconnection.ServiceOrder
 import com.propertyconnection.Tenant
+import com.propertyconnection.User
 import grails.plugin.cache.SerializableByteArrayOutputStream
 
 class BootStrap {
     def init = { servletContext ->
         environments {
             development {
-                def LLcount = Landlord.count()
-                println "landlord count is $LLcount"
-                if (LLcount ==1 ) createSampleData()
+                def userCount = User.count()
+                println "User count is $userCount"
+                if (userCount ==1 ) createSampleData()
             }
             test {
-                if (!Landlord.count()) createSampleData()
+                if (!User.count()) createSampleData()
             }
         }
 
@@ -235,19 +236,19 @@ class BootStrap {
         mary.addToTenants(don)
         mary.save(failOnError: true)
 
-        islandhill.addToTenant(marcus)
+        islandhill.setTenant(marcus)
         islandhill.save(failOnError: true)
 
-        lyndeSt.addToTenant(andy)
+        lyndeSt.setTenant(andy)
         lyndeSt.save(failOnError: true)
 
-        oakgroveave.addToTenant(sally)
+        oakgroveave.setTenant(sally)
         oakgroveave.save(failOnError: true)
 
-        mainst.addToTenant(don)
+        mainst.setTenant(don)
         mainst.save(failOnError: true)
 
-        westwyoming.addToTenant(john)
+        westwyoming.setTenant(john)
         westwyoming.save(failOnError: true)
 
 
@@ -256,12 +257,10 @@ class BootStrap {
 
     private createAdminUserIfRequired() {
         println "Creating admin user"
-        if (!Landlord.findByLoginId("admin")) {
+        if (!User.findByLoginId("admin")) {
             println "Fresh Database. Creating ADMIN user."
 
-            new Landlord(loginId: "admin", password: "password1",  firstName: 'Shawna',
-                    lastName:'reeves',
-                    email: 'shawna@gmail.com').save(failOnError: true)
+            new User(loginId: "admin", password: "password1", dateCreated: new Date()).save(failOnError: true)
         }
         else {
             println "Existing admin user, skipping creation"
