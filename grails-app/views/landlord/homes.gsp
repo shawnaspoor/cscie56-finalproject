@@ -5,6 +5,7 @@
     </head>
 
 <body>
+<div class="container">
 <h3>Properties</h3>
 <div id="allHomes">
     <g:each in="${landlord.homes}" var ="homes">
@@ -59,7 +60,7 @@
         <g:submitButton name="createHome" value="CreateHome" />
     </fieldset>
 </g:form>
-
+</div>
 
 </body>
 </html>

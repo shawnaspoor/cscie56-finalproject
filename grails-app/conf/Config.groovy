@@ -119,22 +119,6 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 }
 
-
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.propertyconnection.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.propertyconnection.UserRole'
-grails.plugin.springsecurity.authority.className = 'com.propertyconnection.Role'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
-	'/assets/**':                     ['permitAll'],
-	'/**/js/**':                      ['permitAll'],
-	'/**/css/**':                     ['permitAll'],
-	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
-]
-
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.propertyconnection.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.propertyconnection.UserRole'
@@ -148,15 +132,16 @@ grails.plugin.springsecurity.interceptUrlMap = [
         '/':                              ['permitAll'],
         '/index':                         ['permitAll'],
         '/index.gsp':                     ['permitAll'],
-        '/user/register*':                ['permitAll'],
+        '/user/register':                 ['permitAll'],
         '/login/**':                      ['permitAll'],
+        '/**/assets/**':                  ['permitAll'],
         '/logout/**':                     ['permitAll'],
         '/**/js/**':                      ['permitAll'],
         '/**/css/**':                     ['permitAll'],
         '/**/images/**':                  ['permitAll'],
         '/user/**':                       ['hasRole("ROLE_ADMIN")'],
         '/role/**':                       ['hasRole("ROLE_ADMIN")'],
-        '/**':                            ['isAuthenticated()']
+        '/**':                            ['permitAll']
 ]
 
 grails.plugin.springsecurity.auth.loginFormUrl = "/login/form"
