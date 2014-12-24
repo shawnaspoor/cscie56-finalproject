@@ -8,7 +8,7 @@
 <body>
 <h3>Service Orders</h3>
     <div id="allServiceOrders">
-       <g:render template="serviceOrderList" collection="${tenant.serviceOrders}" var="serviceOrder" />
+       <g:render template="serviceOrderList" collection="${user.serviceOrders}" var="serviceOrder" />
     </div>
 <br/>
 <br/>

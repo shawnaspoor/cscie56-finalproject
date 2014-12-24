@@ -2,33 +2,6 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'homes', 'error')} required">
-	<label for="homes">
-		<g:message code="serviceOrder.homes.label" default="Homes" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="homes" name="homes.id" from="${com.propertyconnection.Home.list()}" optionKey="id" required="" value="${serviceOrderInstance?.homes?.id}" class="many-to-one"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'landlord', 'error')} required">
-	<label for="landlord">
-		<g:message code="serviceOrder.landlord.label" default="Landlord" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="landlord" name="landlord.id" from="${com.propertyconnection.Landlord.list()}" optionKey="id" required="" value="${serviceOrderInstance?.landlord?.id}" class="many-to-one"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'tenants', 'error')} required">
-	<label for="tenants">
-		<g:message code="serviceOrder.tenants.label" default="Tenants" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="tenants" name="tenants.id" from="${com.propertyconnection.Tenant.list()}" optionKey="id" required="" value="${serviceOrderInstance?.tenants?.id}" class="many-to-one"/>
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'description', 'error')} required">
 	<label for="description">
 		<g:message code="serviceOrder.description.label" default="Description" />
@@ -46,7 +19,14 @@
 	<g:textField name="location" required="" value="${serviceOrderInstance?.location}"/>
 
 </div>
-
+<div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'completed', 'error')} required">
+    <label for="completed">
+        <g:message code="serviceOrder.completed.label" default="Completed" />
+<g:checkBox name="completed" id="completed" checked="${serviceOrderInstance.completed}"/>
+</label>
+</div>
+<br />o
+<!--
 <div class="fieldcontain ${hasErrors(bean: serviceOrderInstance, field: 'photo', 'error')} ">
 	<label for="photo">
 		<g:message code="serviceOrder.photo.label" default="Photo" />
@@ -54,5 +34,6 @@
 	</label>
 	<input type="file" id="photo" name="photo" />
 
-</div>
+
+</div>-->
 

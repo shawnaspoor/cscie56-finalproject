@@ -10,6 +10,8 @@ class HomeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
+    def homeService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Home.list(params), model:[homeInstanceCount: Home.count()]
@@ -22,6 +24,20 @@ class HomeController {
     def create() {
         respond new Home(params)
     }
+    /*my code */
+    @Transactional
+    def updateTenant(Long propertyId, String loginId) {
+        println "updatetenant is being called"
+        println "propertyId: ${propertyId}"
+        println "loginId: ${loginId}"
+        try{
+            def updateTenant = homeService.updateTenant(propertyId, loginId)
+            flash.message = "The tenant for this home is now: ${updateTenant.firstName}"
+        }catch (HomeException he){
+            flash.message = he.message
+        }
+    }
+
 
     @Transactional
     def save(Home homeInstance) {

@@ -131,17 +131,16 @@ grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 grails.plugin.springsecurity.interceptUrlMap = [
         '/':                              ['permitAll'],
         '/index':                         ['permitAll'],
-        '/index.gsp':                     ['permitAll'],
         '/user/register':                 ['permitAll'],
         '/login/**':                      ['permitAll'],
-        '/**/assets/**':                  ['permitAll'],
+        '/assets/**':                     ['permitAll'],
         '/logout/**':                     ['permitAll'],
         '/**/js/**':                      ['permitAll'],
         '/**/css/**':                     ['permitAll'],
         '/**/images/**':                  ['permitAll'],
         '/user/**':                       ['hasRole("ROLE_ADMIN")'],
         '/role/**':                       ['hasRole("ROLE_ADMIN")'],
-        '/**':                            ['permitAll']
+        '/**':                            ['isFullyAuthenticated()']
 ]
 
 grails.plugin.springsecurity.auth.loginFormUrl = "/login/form"

@@ -6,6 +6,7 @@ class ServiceOrder {
     Date dateCreated
     String location
     byte[] photo
+    boolean completed
 
     static belongsTo = [homes : Home]
     static hasOne  = [landlord: Landlord, tenants: Tenant]
@@ -20,5 +21,6 @@ class ServiceOrder {
         dateCreated nullable: true
         location nullable: false
         photo nullable: true
+        completed nullable: true
     }
 }

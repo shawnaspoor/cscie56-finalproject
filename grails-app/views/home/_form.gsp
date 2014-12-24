@@ -34,7 +34,56 @@
 		<g:message code="home.state.label" default="State" />
 		
 	</label>
-	<g:textField name="state" value="${homeInstance?.state}"/>
+	<g:select name="state" value="${homeInstance?.state}" from="${['Alabama',
+                                                                   'Alaska',
+                                                                   'Arizona',
+                                                                   'Arkansas',
+                                                                   'California',
+                                                                   'Colorado',
+                                                                   'Connecticut',
+                                                                   'Delaware',
+                                                                   'Florida',
+                                                                   'Georgia',
+                                                                   'Hawaii',
+                                                                   'Idaho',
+                                                                   'Illinois',
+                                                                   'Indiana',
+                                                                   'Iowa',
+                                                                   'Kansas',
+                                                                   'Kentucky',
+                                                                   'Louisiana',
+                                                                   'Maine',
+                                                                   'Maryland',
+                                                                   'Massachusetts',
+                                                                   'Michigan',
+                                                                   'Minnesota',
+                                                                   'Mississippi',
+                                                                   'Missouri',
+                                                                   'Montana',
+                                                                   'Nebraska',
+                                                                   'Nevada',
+                                                                   'New Hampshire',
+                                                                   'New Jersey',
+                                                                   'New Mexico',
+                                                                   'New York',
+                                                                   'North Carolina',
+                                                                   'North Dakota',
+                                                                   'Ohio',
+                                                                   'Oklahoma',
+                                                                   'Oregon',
+                                                                   'Pennsylvania',
+                                                                   'Rhode Island',
+                                                                   'South Carolina',
+                                                                   'South Dakota',
+                                                                   'Tennessee',
+                                                                   'Texas',
+                                                                   'Utah',
+                                                                   'Vermont',
+                                                                   'Virginia',
+                                                                   'Washington',
+                                                                   'West Virginia',
+                                                                   'Wisconsin',
+                                                                   'Wyoming',]}"/>
 
 </div>
 
@@ -77,12 +126,14 @@
 <div class="fieldcontain ${hasErrors(bean: homeInstance, field: 'tenant', 'error')} ">
 	<label for="tenant">
 		<g:message code="home.tenant.label" default="Tenant" />
-		
+
 	</label>
-	<g:select id="tenant" name="tenant.id" from="${com.propertyconnection.Tenant.list()}" optionKey="id" value="${homeInstance?.tenant?.id}" class="many-to-one" noSelection="['null': '']"/>
+    <g:textField  id="tenant" name="tenant.loginId" value="${homeInstance?.tenant?.loginId}" />
+
+
 
 </div>
-
+<br />
 <!--<div class="fieldcontain ${hasErrors(bean: homeInstance, field: 'serviceOrders', 'error')} ">
 	<label for="serviceOrders">
 		<g:message code="home.serviceOrders.label" default="Service Orders" />

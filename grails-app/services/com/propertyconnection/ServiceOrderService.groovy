@@ -10,14 +10,16 @@ class ServiceOrderException extends RuntimeException{
 
 @Transactional
 class ServiceOrderService {
-    ServiceOrder createServiceOrder (String description, String location, String loginId){
-        def tenant = Tenant.findByLoginId(loginId)
-        def landlord = TenantService.getLandlord(loginId)
-        def home = TenantService.getHome(loginId)
+    ServiceOrder createServiceOrder (String description, String location, Long id){
+        def tenant = Tenant.findById(id)
+        def landlord = TenantService.getLandlord(id)
+        def home = TenantService.getHome(id)
         if(tenant){
+            println "serviceOrderService inside tenant if"
             def serviceOrder = new ServiceOrder(description: description, location: location, homes: home, landlord: landlord )
             tenant.addToServiceOrders(serviceOrder)
-            if(serviceOrder.validate() && tenant.save()) {
+            if(serviceOrder.validate() && tenant.save() && serviceOrder.save()) {
+                println "serviceOrderService inside validate and save"
                 return serviceOrder
             }else {
                 throw new ServiceOrderException(

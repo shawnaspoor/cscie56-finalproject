@@ -7,6 +7,7 @@ import grails.transaction.Transactional
 class ServiceOrderController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
+    def serviceOrderService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -17,31 +18,31 @@ class ServiceOrderController {
         respond serviceOrderInstance
     }
 
-    def create() {
+    /*def create() {
         respond new ServiceOrder(params)
-    }
+    }*/
     /*my code */
-    def listing(String id) {
-        def tenant = Tenant.findByLoginId(id)
-        if(!tenant) {
-            render("${tenant} Whoopsie")
+    def listing(Long id) {
+        def user = User.findById(id)
+        if(!user) {
+            render("${user} Whoopsie")
             //response.sendError(404)
         }else {
-            [tenant: tenant]
+            [user: user]
 
         }
     }
     /*my code */
     def sos() {
-        if(!session.tenant){
+        if(!session.user){
             redirect controller: "login", action: "form"
             return
         }else {
-            render view: "listing", model:[tenant: session.tenant.refresh()]
+            render view: "listing", model:[tenant: session.user.refresh()]
         }
     }
     /*my code */
-    def createServiceOrder(String description, String location, String id) {
+    def createServiceOrder(String description, String location, Long id) {
         try{
             def newServiceOrder = serviceOrderService.createServiceOrder(description, location, id)
             flash.message = "Added a new service order: ${newServiceOrder.description}"
@@ -97,7 +98,8 @@ class ServiceOrderController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'ServiceOrder.label', default: 'ServiceOrder'), serviceOrderInstance.id])
-                redirect serviceOrderInstance
+                redirect (controller:"serviceOrder", action:"listing", id:"${serviceOrderInstance.tenantsId}")
+
             }
             '*'{ respond serviceOrderInstance, [status: OK] }
         }

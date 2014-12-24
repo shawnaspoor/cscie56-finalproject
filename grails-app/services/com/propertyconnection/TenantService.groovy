@@ -13,8 +13,8 @@ class TenantException extends RuntimeException{
 @Transactional
 class TenantService {
 
-    static Home getHome (String loginId){
-        def tenant = Tenant.findByLoginId(loginId)
+    static Home getHome (Long id){
+        def tenant = Tenant.findById(id)
         if(tenant){
             def home = tenant.homes
             if(home) {
@@ -25,8 +25,8 @@ class TenantService {
         throw new TenantException(message: "Invalid login id")
     }
 
-    static Landlord getLandlord (String loginId){
-        def home = Tenant.findByLoginId(loginId)
+    static Landlord getLandlord (Long id){
+        def home = Tenant.findById(id)
         if(home){
             def landlord = home.landlord
             if(landlord) {
