@@ -1,141 +1,152 @@
 package com.propertyconnection
 
-import grails.test.mixin.Mock
-import grails.test.mixin.TestFor
-import spock.lang.Specification
-import spock.lang.Unroll
 
+
+import grails.test.mixin.*
+import spock.lang.*
 
 @TestFor(LandlordController)
-@Mock([Landlord, Home])
-
+@Mock(Landlord)
 class LandlordControllerSpec extends Specification {
-    def "Get a landlords homes"() {
-        Date newDate = new Date()
-        given: "A landlord with homes in the database"
-        Landlord tom = new Landlord(
-                firstName: 'Tom',
-                lastName:'Walker',
-                loginId:'WomTalker',
-                email: 'tomwalker@gmail.com',
-                dateCreated: newDate,
-                password: 'Password1'
-        ).save()
-        tom.addToHomes(new Home(
-                propertyTitle:'Island Hill Ave',
-                streetAddress:'14 Island Hill Ave',
-                //state nullable: false
-                city: 'Melrose',
-                zipcode:'02176',
-                bedrooms:1,
-                baths:2
-        ))
-        tom.save(failOnError: true)
 
-        and: "A landlord id"
-        params.id = tom.loginId
-
-        when: "the property listing is called"
-        def propListing = controller.homes()
-
-        then: "the landlord is in the returned propListing"
-        propListing.landlord.loginId == "WomTalker"
-        propListing.landlord.homes.size() == 1
+    def populateValidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
     }
 
-    def "A new landlord registers with valid parameters" () {
-        given:"A set of valid parameter"
-        params.with {
-            loginId = "shawna"
-            firstName = "shawna"
-            lastName = "spoor"
-            email="shawna@spoor.org"
-            password="Password1"
-        }
+    void "Test the index action returns the correct model"() {
 
-        when: "the landlord is registered"
-        request.method = "POST"
-        controller.register()
+        when:"The index action is executed"
+            controller.index()
 
-        then:"The new landlord is created and the browser is redirected"
-        response.redirectedUrl=='/'
-        Landlord.count ==1
-
+        then:"The model is correct"
+            !model.landlordInstanceList
+            model.landlordInstanceCount == 0
     }
 
-    @Unroll
-    def "Command object for registration validation"() {
-        given: "a mocked command object"
-        def lrc= mockCommandObject(LandlordRegistrationCommand)
+    void "Test the create action returns the correct model"() {
+        when:"The create action is executed"
+            controller.create()
 
-        and: "A set of values for the test"
-        lrc.loginId = loginId
-        lrc.firstName = "shawna"
-        lrc.lastName = "spoor"
-        lrc.email = "shawna@spoor.org"
-        lrc.password = password
-        lrc.passwordRepeat = passwordRepeat
-
-        when: "the validator is called"
-        def isValidRegistration = lrc.validate()
-
-        then: "The fields with errors are flagged"
-        isValidRegistration == anticipatedValid
-        lrc.errors.getFieldError(fieldInError)?.code == errorCode
-
-        where:
-        loginId     |  password          |   passwordRepeat     |   anticipatedValid  |  fieldInError      | errorCode
-        "stacey"    | "passowrd"         |   "no-match"         |   false             | "passwordRepeat"   | "validator.invalid"
-        "james"     | "password"         |   "password"         |   true              |  null              | null
+        then:"The model is correctly created"
+            model.landlordInstance!= null
     }
 
-    def "calling the register2 action"() {
-        given: "A configured command object"
-        def lrc = mockCommandObject(LandlordRegistrationCommand)
-        lrc.with {
-            loginId = "shawna"
-            firstName = "Shawna"
-            lastName = "spoor"
-            email = "shawna@spoor.org"
-            password = "password1"
-            passwordRepeat = "password1"
-        }
+    void "Test the save action correctly persists an instance"() {
 
-        and: "which has been validated"
-        lrc.validate()
+        when:"The save action is executed with an invalid instance"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'POST'
+            def landlord = new Landlord()
+            landlord.validate()
+            controller.save(landlord)
 
-        when: "register2 called"
-        controller.register2(lrc)
+        then:"The create view is rendered again with the correct model"
+            model.landlordInstance!= null
+            view == 'create'
 
-        then:"the tenant is registered and redirected"
-        !lrc.hasErrors()
-        response.redirectedUrl=='/'
-        Landlord.count() == 1
+        when:"The save action is executed with a valid instance"
+            response.reset()
+            populateValidParams(params)
+            landlord = new Landlord(params)
 
+            controller.save(landlord)
+
+        then:"A redirect is issued to the show action"
+            response.redirectedUrl == '/landlord/show/1'
+            controller.flash.message != null
+            Landlord.count() == 1
     }
 
-    def "Add a valid new home"() {
-        given: "A mock home service"
-        def mockHomeService = Mock(HomeService)
-        1 * mockHomeService.createHome(_, _, _, _, _, _, _, _) >>
-                new Home(propertyTitle: "Mock home1", streetAddress:"Mock address", city: "Mock city",
-                        zipcode: "02138", bedrooms:2, baths: 2, photo: null)
-        controller.homeService = mockHomeService
+    void "Test that the show action returns the correct model"() {
+        when:"The show action is executed with a null domain"
+            controller.show(null)
 
-        when:"the controller is called"
-        def result = controller.createHome(
-                "Mock home1",
-                "Mock address",
-                "Mock city",
-                "02138",
-                2,
-                1,
-                null
-        )
+        then:"A 404 error is returned"
+            response.status == 404
 
-        then: "redirected to the listing, flash notification ok"
-        flash.message ==~ /Added a new home: Mock home1 */
-        //response.redirectedUrl == '/serviceOrder/listing/shawna'
+        when:"A domain instance is passed to the show action"
+            populateValidParams(params)
+            def landlord = new Landlord(params)
+            controller.show(landlord)
+
+        then:"A model is populated containing the domain instance"
+            model.landlordInstance == landlord
     }
 
+    void "Test that the edit action returns the correct model"() {
+        when:"The edit action is executed with a null domain"
+            controller.edit(null)
+
+        then:"A 404 error is returned"
+            response.status == 404
+
+        when:"A domain instance is passed to the edit action"
+            populateValidParams(params)
+            def landlord = new Landlord(params)
+            controller.edit(landlord)
+
+        then:"A model is populated containing the domain instance"
+            model.landlordInstance == landlord
+    }
+
+    void "Test the update action performs an update on a valid domain instance"() {
+        when:"Update is called for a domain instance that doesn't exist"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'PUT'
+            controller.update(null)
+
+        then:"A 404 error is returned"
+            response.redirectedUrl == '/landlord/index'
+            flash.message != null
+
+
+        when:"An invalid domain instance is passed to the update action"
+            response.reset()
+            def landlord = new Landlord()
+            landlord.validate()
+            controller.update(landlord)
+
+        then:"The edit view is rendered again with the invalid instance"
+            view == 'edit'
+            model.landlordInstance == landlord
+
+        when:"A valid domain instance is passed to the update action"
+            response.reset()
+            populateValidParams(params)
+            landlord = new Landlord(params).save(flush: true)
+            controller.update(landlord)
+
+        then:"A redirect is issues to the show action"
+            response.redirectedUrl == "/landlord/show/$landlord.id"
+            flash.message != null
+    }
+
+    void "Test that the delete action deletes an instance if it exists"() {
+        when:"The delete action is called for a null instance"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'DELETE'
+            controller.delete(null)
+
+        then:"A 404 is returned"
+            response.redirectedUrl == '/landlord/index'
+            flash.message != null
+
+        when:"A domain instance is created"
+            response.reset()
+            populateValidParams(params)
+            def landlord = new Landlord(params).save(flush: true)
+
+        then:"It exists"
+            Landlord.count() == 1
+
+        when:"The domain instance is passed to the delete action"
+            controller.delete(landlord)
+
+        then:"The instance is deleted"
+            Landlord.count() == 0
+            response.redirectedUrl == '/landlord/index'
+            flash.message != null
+    }
 }

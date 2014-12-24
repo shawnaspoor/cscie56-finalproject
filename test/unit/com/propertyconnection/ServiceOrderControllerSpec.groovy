@@ -1,202 +1,152 @@
 package com.propertyconnection
 
-import grails.test.mixin.Mock
-import grails.test.mixin.TestFor
-import spock.lang.Specification
-import spock.lang.Unroll
 
+
+import grails.test.mixin.*
+import spock.lang.*
 
 @TestFor(ServiceOrderController)
-@Mock([Tenant, Landlord, Home, ServiceOrder])
+@Mock(ServiceOrder)
 class ServiceOrderControllerSpec extends Specification {
 
-    Date newDate = new Date()
-   def charlie = new Landlord(
-            firstName: 'Charlie',
-            lastName: 'Booker',
-            email: 'charlie@gmail.com',
-            dateCreated: newDate,
-            password:  'password',
-            loginId: 'charliebooker'
-
-    )
-    def shawna = new Tenant (
-            firstName: 'Shawna',
-            lastName: 'Spoor',
-            email: 'shawnaspoor@gmail.com',
-            dateCreated: newDate,
-            password:  'password',
-            loginId: 'shawna'
-    )
-    def lyndeSt = new Home (
-            propertyTitle:'Lynde St',
-            streetAddress:'29 Lynde St',
-            //state nullable: false
-            city: 'Melrose',
-            zipcode:'02176',
-            bedrooms:2,
-            baths:1,
-            landlord: charlie,
-            tenant: shawna
-    )
-
-
-   def "Get a tenants service orders given the tenant's id"() {
-       given: "A tenant with service orders in the database"
-       Tenant shawna = new Tenant (
-               firstName: 'Shawna',
-               lastName: 'Spoor',
-               email: 'shawnaspoor@gmail.com',
-               dateCreated: newDate,
-               password:  'password',
-               loginId: 'shawna'
-       ).save()
-       shawna.addToServiceOrders(new ServiceOrder(description: "light bulb out in bathroom", location: "bathroom" ,
-               homes:lyndeSt ))
-       shawna.addToServiceOrders(new ServiceOrder(description: "fridge stopped working", location: "kitchen" ,
-               homes:lyndeSt ))
-       shawna.save(failOnError: true)
-
-       and: "A loginId Parameter"
-       params.id = shawna.loginId
-
-
-       when: "The service orders are called"
-       def list = controller.listing()
-
-       then: "the tenant is in the list"
-       list.tenant.loginId == "shawna"
-       list.tenant.serviceOrders.size() == 2
-   }
-
-    def "Add a valid new service order"() {
-        given: "A mock service order service"
-        def mockServiceOrderService = Mock(ServiceOrderService)
-        1 * mockServiceOrderService.createServiceOrder(_, _, _) >>
-            new ServiceOrder(description: "Mock broken toilet", location:"Mock bathroom")
-            controller.serviceOrderService = mockServiceOrderService
-
-        when:"the controller is called"
-        def result = controller.createServiceOrder(
-                "broken toilet",
-                "bathroom",
-                "shawna"
-        )
-
-        then: "redirected to the listing, flash notification ok"
-        flash.message ==~ /Added a new service order: Mock broken toilet */
-        response.redirectedUrl == '/serviceOrder/listing/shawna'
+    def populateValidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
     }
 
-/*
-      def "Add a valid new service order"() {
-          given: "A tenant with service orders in the database"
-          Tenant shawna = new Tenant (
-                  firstName: 'Shawna',
-                  lastName: 'Spoor',
-                  email: 'shawnaspoor@gmail.com',
-                  dateCreated: newDate,
-                  password:  'password',
-                  loginId: 'shawna'
-          ).save(failOnError: true)
+    void "Test the index action returns the correct model"() {
 
-          and: "A loginId Parameter"
-          params.id = shawna.loginId
+        when:"The index action is executed"
+            controller.index()
 
-          and: "A service order"
-          params.description="stuff is broken"
-          params.location="here"
-
-          when:"createServiceOrder is called"
-          def creation = controller.createServiceOrder()
-
-          then: "the flash message and redirect shows it was successfully added"
-          flash.message == "Your service order has been submitted"
-          response.redirectedUrl == "/serviceOrder/listing/${shawna.loginId}"
-         erviceOrder.countByTenants(shawna) == 1
-      }
-
-      def "Add an invalid new service order"() {
-          given: "A tenant with service orders in the database"
-          Tenant shawna = new Tenant (
-                  firstName: 'Shawna',
-                  lastName: 'Spoor',
-                  email: 'shawnaspoor@gmail.com',
-                  dateCreated: newDate,
-                  password:  'password',
-                  loginId: 'shawna'
-          ).save(failOnError: true)
-
-          and: "A loginId Parameter"
-          params.id = shawna.loginId
-
-          and: "A service order"
-          params.description= null
-          params.location="here"
-
-          when:"createServiceOrder is called"
-          def creation = controller.createServiceOrder()
-
-          then: "the flash message and redirect shows it was not successfully added"
-          flash.message == "Sorry there seems to be something wrong, try that again."
-          response.redirectedUrl == "/serviceOrder/listing/${shawna.loginId}"
-          ServiceOrder.countByTenants(shawna) == 0
-      }
-*/
-    def "Add an invalid new service order"() {
-        given: "a tenant with service orders"
-        Tenant shawna = new Tenant (
-                firstName: 'Shawna',
-                lastName: 'Spoor',
-                email: 'shawnaspoor@gmail.com',
-                dateCreated: newDate,
-                password:  'password',
-                loginId: 'shawna'
-        ).save(failOnError: true)
-
-        and: "A service order service that throws an exception with the input"
-        def errorMsg = "Invalid or empty field(s)"
-        def mockServiceOrderService = Mock(ServiceOrderService)
-        controller.serviceOrderService = mockServiceOrderService
-        1 * mockServiceOrderService.createServiceOrder(null, "bathroom", shawna.loginId) >>{
-            throw new ServiceOrderException(message: errorMsg)
-        }
-
-        and: "A loginId"
-        params.id = shawna.loginId
-
-        and: "Some content for the service order"
-        params.description = null
-        params.location = "bathroom"
-
-        when:"the controller is called"
-        def result = controller.createServiceOrder()
-
-        then: "redirected to the listing, flash notification ok"
-        flash.message == errorMsg
-        response.redirectedUrl == "/serviceOrder/listing/shawna"
-        ServiceOrder.countByTenants(shawna) == 0
+        then:"The model is correct"
+            !model.serviceOrderInstanceList
+            model.serviceOrderInstanceCount == 0
     }
 
+    void "Test the create action returns the correct model"() {
+        when:"The create action is executed"
+            controller.create()
 
-    @Unroll
-    def "testing id"() {
-        given:"an id supplied via params"
-        params.id = suppliedId
-
-        when: "the controller is invoked"
-        controller.home()
-
-        then:
-        response.redirectedUrl == expectedUrl
-
-        where:
-        suppliedId  |   expectedUrl
-        'areeves'   |   '/serviceOrder/listing/areeves'
-        null        |   '/serviceOrder/listing/shawna'
-
+        then:"The model is correctly created"
+            model.serviceOrderInstance!= null
     }
 
+    void "Test the save action correctly persists an instance"() {
+
+        when:"The save action is executed with an invalid instance"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'POST'
+            def serviceOrder = new ServiceOrder()
+            serviceOrder.validate()
+            controller.save(serviceOrder)
+
+        then:"The create view is rendered again with the correct model"
+            model.serviceOrderInstance!= null
+            view == 'create'
+
+        when:"The save action is executed with a valid instance"
+            response.reset()
+            populateValidParams(params)
+            serviceOrder = new ServiceOrder(params)
+
+            controller.save(serviceOrder)
+
+        then:"A redirect is issued to the show action"
+            response.redirectedUrl == '/serviceOrder/show/1'
+            controller.flash.message != null
+            ServiceOrder.count() == 1
+    }
+
+    void "Test that the show action returns the correct model"() {
+        when:"The show action is executed with a null domain"
+            controller.show(null)
+
+        then:"A 404 error is returned"
+            response.status == 404
+
+        when:"A domain instance is passed to the show action"
+            populateValidParams(params)
+            def serviceOrder = new ServiceOrder(params)
+            controller.show(serviceOrder)
+
+        then:"A model is populated containing the domain instance"
+            model.serviceOrderInstance == serviceOrder
+    }
+
+    void "Test that the edit action returns the correct model"() {
+        when:"The edit action is executed with a null domain"
+            controller.edit(null)
+
+        then:"A 404 error is returned"
+            response.status == 404
+
+        when:"A domain instance is passed to the edit action"
+            populateValidParams(params)
+            def serviceOrder = new ServiceOrder(params)
+            controller.edit(serviceOrder)
+
+        then:"A model is populated containing the domain instance"
+            model.serviceOrderInstance == serviceOrder
+    }
+
+    void "Test the update action performs an update on a valid domain instance"() {
+        when:"Update is called for a domain instance that doesn't exist"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'PUT'
+            controller.update(null)
+
+        then:"A 404 error is returned"
+            response.redirectedUrl == '/serviceOrder/index'
+            flash.message != null
 
 
+        when:"An invalid domain instance is passed to the update action"
+            response.reset()
+            def serviceOrder = new ServiceOrder()
+            serviceOrder.validate()
+            controller.update(serviceOrder)
+
+        then:"The edit view is rendered again with the invalid instance"
+            view == 'edit'
+            model.serviceOrderInstance == serviceOrder
+
+        when:"A valid domain instance is passed to the update action"
+            response.reset()
+            populateValidParams(params)
+            serviceOrder = new ServiceOrder(params).save(flush: true)
+            controller.update(serviceOrder)
+
+        then:"A redirect is issues to the show action"
+            response.redirectedUrl == "/serviceOrder/show/$serviceOrder.id"
+            flash.message != null
+    }
+
+    void "Test that the delete action deletes an instance if it exists"() {
+        when:"The delete action is called for a null instance"
+            request.contentType = FORM_CONTENT_TYPE
+            request.method = 'DELETE'
+            controller.delete(null)
+
+        then:"A 404 is returned"
+            response.redirectedUrl == '/serviceOrder/index'
+            flash.message != null
+
+        when:"A domain instance is created"
+            response.reset()
+            populateValidParams(params)
+            def serviceOrder = new ServiceOrder(params).save(flush: true)
+
+        then:"It exists"
+            ServiceOrder.count() == 1
+
+        when:"The domain instance is passed to the delete action"
+            controller.delete(serviceOrder)
+
+        then:"The instance is deleted"
+            ServiceOrder.count() == 0
+            response.redirectedUrl == '/serviceOrder/index'
+            flash.message != null
+    }
 }

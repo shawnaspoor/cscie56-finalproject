@@ -1,5 +1,140 @@
 package com.propertyconnection
 
+import static org.springframework.http.HttpStatus.*
+import grails.transaction.Transactional
+
+@Transactional(readOnly = true)
+class ServiceOrderController {
+
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
+
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond ServiceOrder.list(params), model:[serviceOrderInstanceCount: ServiceOrder.count()]
+    }
+
+    def show(ServiceOrder serviceOrderInstance) {
+        respond serviceOrderInstance
+    }
+
+    def create() {
+        respond new ServiceOrder(params)
+    }
+    /*my code */
+    def listing(String id) {
+        def tenant = Tenant.findByLoginId(id)
+        if(!tenant) {
+            render("${tenant} Whoopsie")
+            //response.sendError(404)
+        }else {
+            [tenant: tenant]
+
+        }
+    }
+    /*my code */
+    def sos() {
+        if(!session.tenant){
+            redirect controller: "login", action: "form"
+            return
+        }else {
+            render view: "listing", model:[tenant: session.tenant.refresh()]
+        }
+    }
+    /*my code */
+    def createServiceOrder(String description, String location, String id) {
+        try{
+            def newServiceOrder = serviceOrderService.createServiceOrder(description, location, id)
+            flash.message = "Added a new service order: ${newServiceOrder.description}"
+        } catch (ServiceOrderException se) {
+            flash.message = se.message
+        }
+        redirect(action: 'listing', id: id )
+    }
+
+
+
+    @Transactional
+    def save(ServiceOrder serviceOrderInstance) {
+        if (serviceOrderInstance == null) {
+            notFound()
+            return
+        }
+
+        if (serviceOrderInstance.hasErrors()) {
+            respond serviceOrderInstance.errors, view:'create'
+            return
+        }
+
+        serviceOrderInstance.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'serviceOrder.label', default: 'ServiceOrder'), serviceOrderInstance.id])
+                redirect serviceOrderInstance
+            }
+            '*' { respond serviceOrderInstance, [status: CREATED] }
+        }
+    }
+
+    def edit(ServiceOrder serviceOrderInstance) {
+        respond serviceOrderInstance
+    }
+
+    @Transactional
+    def update(ServiceOrder serviceOrderInstance) {
+        if (serviceOrderInstance == null) {
+            notFound()
+            return
+        }
+
+        if (serviceOrderInstance.hasErrors()) {
+            respond serviceOrderInstance.errors, view:'edit'
+            return
+        }
+
+        serviceOrderInstance.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'ServiceOrder.label', default: 'ServiceOrder'), serviceOrderInstance.id])
+                redirect serviceOrderInstance
+            }
+            '*'{ respond serviceOrderInstance, [status: OK] }
+        }
+    }
+
+    @Transactional
+    def delete(ServiceOrder serviceOrderInstance) {
+
+        if (serviceOrderInstance == null) {
+            notFound()
+            return
+        }
+
+        serviceOrderInstance.delete flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ServiceOrder.label', default: 'ServiceOrder'), serviceOrderInstance.id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'serviceOrder.label', default: 'ServiceOrder'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
+}
+/*
+package com.propertyconnection
+
 class ServiceOrderController {
     static scaffold = true
 
@@ -14,35 +149,6 @@ class ServiceOrderController {
         redirect(action:'listing', params: params)
     }
 
-    def listing(String id) {
-        def tenant = Tenant.findByLoginId(id)
-        if(!tenant) {
-            render("${tenant} Whoopsie")
-            //response.sendError(404)
-        }else {
-            [tenant: tenant]
-
-        }
-    }
-
-    def sos() {
-        if(!session.tenant){
-            redirect controller: "login", action: "form"
-            return
-        }else {
-            render view: "listing", model:[tenant: session.tenant.refresh()]
-        }
-    }
-
-    def createServiceOrder(String description, String location, String id) {
-            try{
-                def newServiceOrder = serviceOrderService.createServiceOrder(description, location, id)
-                flash.message = "Added a new service order: ${newServiceOrder.description}"
-            } catch (ServiceOrderException se) {
-                flash.message = se.message
-            }
-            redirect(action: 'listing', id: id )
-    }
 
     /*
     def createServiceOrder() {
@@ -70,6 +176,7 @@ class ServiceOrderController {
         }
         redirect(action: 'listing', id: params.id)
     }
-*/
+
 }
+*/
 

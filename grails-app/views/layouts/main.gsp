@@ -43,7 +43,7 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse" >
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="/propertyconnection">Home</a></li>
                             <li><a href="#">Profile</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Property <span class="caret"></span></a>

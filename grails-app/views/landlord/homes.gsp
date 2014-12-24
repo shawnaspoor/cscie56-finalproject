@@ -15,7 +15,7 @@
                 Address: ${homes.streetAddress}
                 <br /><br />
                 <fieldset>
-                    <a  class="buttons" href="/propertyconnection/home/details/${homes.id}" class="edit">Details</a>
+                    <a  class="buttons" href="/propertyconnection/home/show/${homes.id}" class="edit">Details</a>
                 </fieldset>
                 <hr>
                 <br/>
