@@ -9,9 +9,10 @@ class UserController {
 
     def register(UserRegistrationCommand urc) {
         if(urc.hasErrors()) {
-            render view:"/register", model: [user: urc]
+            render view:"/user/register", model: [user: urc]
         }else{
-            if (params.selection =="landlord")
+            println params.selection
+            if (params.selection =="Landlord")
             {
                 def landlord = new Landlord(urc.properties)
                 if(landlord.validate() && landlord.save()) {
@@ -46,9 +47,11 @@ class UserRegistrationCommand {
     String loginId
     Date dateCreated
     byte[] photo
+    String selection
 
     static constraints = {
-        importFrom User
+        photo nullable: true
+        dateCreated nullable: true
         password(size: 8..15, validator: {passwd, urc -> passwd !=urc.loginId} )
         passwordRepeat (nullable: false, validator: {passwd2, urc -> return passwd2 == urc.password})
     }

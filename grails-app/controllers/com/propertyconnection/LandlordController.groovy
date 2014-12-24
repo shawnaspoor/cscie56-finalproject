@@ -65,7 +65,7 @@ class LandlordController {
 
 
         def createHome(String propertyTitle, String streetAddress,
-                   String city, String zipcode, Integer bedrooms, Integer baths, String id) {
+                   String city, String state, String zipcode, Integer bedrooms, Integer baths, String id) {
             try{
                 def newHome = homeService.createHome(propertyTitle, streetAddress,
                         city, zipcode, bedrooms, baths, id)

@@ -12,7 +12,11 @@
             <div class ="homeDetails">
                 Property details: ${homes.propertyTitle}
                 <br/>
-                street ${homes.streetAddress}
+                Address: ${homes.streetAddress}
+                <br /><br />
+                <fieldset>
+                    <a  class="buttons" href="/propertyconnection/home/details/${homes.id}" class="edit">Details</a>
+                </fieldset>
                 <hr>
                 <br/>
             </div>
@@ -42,6 +46,60 @@
         <div class="fieldcontain required">
             <label for="city">City</label>
             <g:textField name="city" value="${home?.city}" />
+        </div>
+        <div class="fieldcontain required">
+            <label for="state">State</label>
+            <g:select for="state" name="state" from="${['Alabama',
+                                                        'Alaska',
+                                                        'Arizona',
+                                                        'Arkansas',
+                                                        'California',
+                                                        'Colorado',
+                                                        'Connecticut',
+                                                        'Delaware',
+                                                        'Florida',
+                                                        'Georgia',
+                                                        'Hawaii',
+                                                        'Idaho',
+                                                        'Illinois',
+                                                        'Indiana',
+                                                        'Iowa',
+                                                        'Kansas',
+                                                        'Kentucky',
+                                                        'Louisiana',
+                                                        'Maine',
+                                                        'Maryland',
+                                                        'Massachusetts',
+                                                        'Michigan',
+                                                        'Minnesota',
+                                                        'Mississippi',
+                                                        'Missouri',
+                                                        'Montana',
+                                                        'Nebraska',
+                                                        'Nevada',
+                                                        'New Hampshire',
+                                                        'New Jersey',
+                                                        'New Mexico',
+                                                        'New York',
+                                                        'North Carolina',
+                                                        'North Dakota',
+                                                        'Ohio',
+                                                        'Oklahoma',
+                                                        'Oregon',
+                                                        'Pennsylvania',
+                                                        'Rhode Island',
+                                                        'South Carolina',
+                                                        'South Dakota',
+                                                        'Tennessee',
+                                                        'Texas',
+                                                        'Utah',
+                                                        'Vermont',
+                                                        'Virginia',
+                                                        'Washington',
+                                                        'West Virginia',
+                                                        'Wisconsin',
+                                                        'Wyoming',]}"
+                      value="${home?.state}"/>
         </div>
         <div class="fieldcontain required">
             <label for="zipcode">Zipcode</label>

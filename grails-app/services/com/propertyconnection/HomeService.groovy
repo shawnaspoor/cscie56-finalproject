@@ -10,10 +10,10 @@ class HomeException extends RuntimeException{
 @Transactional
 class HomeService {
         Home createHome (String propertyTitle, String streetAddress,
-        String city, String zipcode, Integer bedrooms, Integer baths, String id){
+        String city, String state, String zipcode, Integer bedrooms, Integer baths, String id){
             def landlord = Landlord.findByLoginId(id)
             if(landlord){
-                def home = new Home(propertyTitle: propertyTitle, streetAddress: streetAddress, city: city,
+                def home = new Home(propertyTitle: propertyTitle, streetAddress: streetAddress, city: city, state: state,
                 zipcode: zipcode, bedrooms: bedrooms, baths: baths )
                 landlord.addToHomes(home)
                 if(home.validate() && home.save()) {
@@ -25,4 +25,20 @@ class HomeService {
             }
             throw new HomeException(message: "Invalid Landlord Id")
         }
+
+    def update (String propertyTitle, String streetAddress,
+                     String city, String state, String zipcode, Integer bedrooms, Integer baths, Integer id){
+        println "home id: ${id}"
+        println "baths:  ${baths}"
+        def home = Home.findById(id)
+        home.save(propertyTitle: propertyTitle, streetAddress: streetAddress, city: city, state: state,
+                zipcode: zipcode, bedrooms: bedrooms, baths: baths)
+            if(home.validate() && home.save()) {
+                return home
+            }else {
+                throw new HomeException(
+                        message: "Invalid or empty field(s)", home: home)
+            }
+        throw new HomeException(message: "Invalid home Id")
+    }
 }

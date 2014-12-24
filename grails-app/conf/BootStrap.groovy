@@ -256,11 +256,9 @@ class BootStrap {
     }
 
     private createAdminUserIfRequired() {
-        println "Creating admin user"
         if (!User.findByLoginId("admin")) {
             println "Fresh Database. Creating ADMIN user."
-
-            new User(loginId: "admin", password: "password1", dateCreated: new Date()).save(failOnError: true)
+            new User(loginId: "admin", password: "password1").save(failOnError: true)
         }
         else {
             println "Existing admin user, skipping creation"

@@ -58,7 +58,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="active"><a href="./">Login <span class="sr-only">(current)</span></a></li>
                             <li><a href=" ">Logout</a></li>
-                            <li><a href=" ">Register</a></li>
+                            <li><a href="/propertyconnection/user/register">Register</a></li>
 
                         </ul>
                     </div><!--/.nav-collapse -->

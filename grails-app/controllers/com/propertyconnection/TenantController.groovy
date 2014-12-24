@@ -41,6 +41,20 @@ class TenantController {
         }
     }
 
+    def search() {
+
+    }
+
+    def results(String email) {
+        def tenant = Tenant.where{
+            email =~email
+        }.list()
+        return [tenant: tenant,
+        term: params.email,
+        totalTenants: Tenant.count()]
+    }
+
+
 }
 
 class TenantRegistrationCommand {

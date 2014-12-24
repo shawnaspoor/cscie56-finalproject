@@ -3,7 +3,7 @@ package com.propertyconnection
 class Home {
     String propertyTitle
     String streetAddress
-    //enum state review enum implementation later
+    String state
     String city
     String zipcode
     Integer bedrooms
@@ -24,7 +24,7 @@ class Home {
         propertyTitle nullable: false, maxSize: 30
         streetAddress nullable: false
         city nullable: false
-        //state nullable: false
+        state nullable: true
         zipcode nullable: false
         bedrooms nullable:  false
         baths nullable: false
