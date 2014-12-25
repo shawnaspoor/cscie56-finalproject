@@ -22,13 +22,22 @@ class ServiceOrderController {
         respond new ServiceOrder(params)
     }*/
     /*my code */
-    def listing(Long id) {
-        def user = User.findById(id)
+    def listing() {
+        def user = springSecurityService.currentUser
+        def id = user.id
+        def tenant = Tenant.findById(id)
+        def landlord = Landlord.findById(id)
         if(!user) {
             render("${user} Whoopsie")
             //response.sendError(404)
         }else {
-            [user: user]
+            if(tenant){
+                [tenant:tenant]
+            }
+            if(landlord){
+                [landlord:landlord]
+            }
+
 
         }
     }

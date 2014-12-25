@@ -26,7 +26,8 @@ class ServiceOrderServiceSpec extends Specification {
             email: 'shawnaspoor@gmail.com',
             dateCreated: newDate,
             password:  'password',
-            loginId: 'shawna'
+            loginId: 'shawna',
+
     )
     def lyndeSt = new Home (
             propertyTitle:'Lynde St',
@@ -55,7 +56,7 @@ class ServiceOrderServiceSpec extends Specification {
         ).save()
 
         when: "a new service order is created by the service"
-        def newServiceOrder = service.createServiceOrder("broken toilet", "bathroom", "shawna")
+        def newServiceOrder = service.createServiceOrder("broken toilet", "bathroom", 1)
 
         then: "the service order is returned and added to the tenant"
         newServiceOrder.description == "broken toilet"
@@ -77,7 +78,7 @@ class ServiceOrderServiceSpec extends Specification {
 
 
         when: "an invalid new service order is created"
-        def newServiceOrder = service.createServiceOrder(null, null, "shawna")
+        def newServiceOrder = service.createServiceOrder(null, null, 1)
 
         then: "an exception is thrown and no service order is saved"
         thrown(ServiceOrderException)

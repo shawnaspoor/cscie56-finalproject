@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page   contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>All service orders</title>
@@ -6,10 +6,25 @@
 </head>
 
 <body>
-<h3>Service Orders</h3>
-    <div id="allServiceOrders">
-       <g:render template="serviceOrderList" collection="${user.serviceOrders}" var="serviceOrder" />
+<h3>Service Orders </h3>
+<g:each in="${serviceOrder}" var ="serviceOrder">
+    <div class ="serviceOrders">
+
+        Home:  ${user.serviceOrder.homes.propertyTitle}
+        <br/>
+        Location: ${user.serviceOrder.location}
+        <br/>
+        Description: ${user.serviceOrder.description}
+        <br/>
+        Completed?  ${user.serviceOrder.completed}
+        <br/></div>
+    <div class="serviceOrderDate">
+        Created: <pc:dateFrom date="${serviceOrder.dateCreated}"/>
     </div>
+
+    </div>
+</g:each>
+
 <br/>
 <br/>
     <g:if test ="${flash.message}">

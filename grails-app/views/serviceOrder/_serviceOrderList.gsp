@@ -14,3 +14,7 @@
      <button><a href="/propertyconnection/serviceOrder/edit/${serviceOrder.id}">Edit</a></button
     <hr />
 </div>
+
+<div id="allServiceOrders">
+    <g:render template="serviceOrderList" collection="${user.serviceOrders}" var="serviceOrder" />
+</div>

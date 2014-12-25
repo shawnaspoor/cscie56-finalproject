@@ -9,14 +9,17 @@ import grails.transaction.Transactional
 class TenantController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
-
+    def springSecurityService
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Tenant.list(params), model:[tenantInstanceCount: Tenant.count()]
     }
 
-    def show(Tenant tenantInstance) {
-        respond tenantInstance
+    def show() {
+        def user = springSecurityService.currentUser
+        Long id = user.id
+        def tenant = Tenant.findById(id)
+        respond tenant
     }
 
     def create() {

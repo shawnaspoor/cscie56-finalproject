@@ -53,13 +53,13 @@
                     <div id="navbar" class="navbar-collapse collapse" >
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="/propertyconnection">Home</a></li>
-                            <li><a href="/propertyconnection/landlord/show/${params.id}">Landlord Profile</a></li>
-                            <li><a href="/propertyconnection/tenant/show/${params.id}">Tenant Profile</a></li>
+                            <li><a href="/propertyconnection/landlord/show">Landlord Profile</a></li>
+                            <li><a href="/propertyconnection/tenant/show">Tenant Profile</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Property <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/propertyconnection/landlord/homes/${params.id}">Homes</a></li>
-                                    <li><a href="/propertyconnection/serviceOrder/listing/${params.id}">Service Order</a></li>
+                                    <li><a href="/propertyconnection/landlord/homes">Homes</a></li>
+                                    <li><a href="/propertyconnection/serviceOrder/listing">Service Order</a></li>
 
                                 </ul>
                             </li>

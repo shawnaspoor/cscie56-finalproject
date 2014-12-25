@@ -8,6 +8,47 @@ import spock.lang.*
 @TestFor(HomeController)
 @Mock(Home)
 class HomeControllerSpec extends Specification {
+/*
+    Date newDate = new Date()
+    def charlie = new Landlord(
+            firstName: 'Charlie',
+            lastName: 'Booker',
+            email: 'charlie@gmail.com',
+            dateCreated: newDate,
+            password:  'password',
+            loginId: 'charliebooker'
+    )
+
+    def "Get a landlords homes given the landlord's id"() {
+        given: "A landlord with homes in the database"
+        Landlord charlie = new Landlord(
+                firstName: 'Charlie',
+                lastName: 'Booker',
+                email: 'charlie@gmail.com',
+                dateCreated: newDate,
+                password:  'password',
+                loginId: 'charliebooker'
+
+        ).save()
+        charlie.addToHomes(new Home(propertyTitle: "property1", streetAddress: "1 street", city:"melrose",
+                zipcode: "02176", bedrooms: 2, baths: 1, photo: null))
+        charlie.addToHomes(new Home(propertyTitle: "property2", streetAddress: "1 street", city:"melrose",
+                zipcode: "02176", bedrooms: 2, baths: 1, photo: null))
+        charlie.save(failOnError: true)
+
+        and: "A loginId Parameter"
+        params.id = charlie.loginId
+
+
+        when: "The homes are called"
+        def list = controller.listing()
+
+        then: "the tenant is in the list"
+        list.landlord.loginId == "charliebooker"
+        list.landlord.homes.size() == 2
+    }
+
+*/
 
     def populateValidParams(params) {
         assert params != null
@@ -33,31 +74,6 @@ class HomeControllerSpec extends Specification {
             model.homeInstance!= null
     }
 
-    void "Test the save action correctly persists an instance"() {
-
-        when:"The save action is executed with an invalid instance"
-            request.contentType = FORM_CONTENT_TYPE
-            request.method = 'POST'
-            def home = new Home()
-            home.validate()
-            controller.save(home)
-
-        then:"The create view is rendered again with the correct model"
-            model.homeInstance!= null
-            view == 'create'
-
-        when:"The save action is executed with a valid instance"
-            response.reset()
-            populateValidParams(params)
-            home = new Home(params)
-
-            controller.save(home)
-
-        then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/home/show/1'
-            controller.flash.message != null
-            Home.count() == 1
-    }
 
     void "Test that the show action returns the correct model"() {
         when:"The show action is executed with a null domain"
@@ -91,62 +107,6 @@ class HomeControllerSpec extends Specification {
             model.homeInstance == home
     }
 
-    void "Test the update action performs an update on a valid domain instance"() {
-        when:"Update is called for a domain instance that doesn't exist"
-            request.contentType = FORM_CONTENT_TYPE
-            request.method = 'PUT'
-            controller.update(null)
-
-        then:"A 404 error is returned"
-            response.redirectedUrl == '/home/index'
-            flash.message != null
 
 
-        when:"An invalid domain instance is passed to the update action"
-            response.reset()
-            def home = new Home()
-            home.validate()
-            controller.update(home)
-
-        then:"The edit view is rendered again with the invalid instance"
-            view == 'edit'
-            model.homeInstance == home
-
-        when:"A valid domain instance is passed to the update action"
-            response.reset()
-            populateValidParams(params)
-            home = new Home(params).save(flush: true)
-            controller.update(home)
-
-        then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/home/show/$home.id"
-            flash.message != null
-    }
-
-    void "Test that the delete action deletes an instance if it exists"() {
-        when:"The delete action is called for a null instance"
-            request.contentType = FORM_CONTENT_TYPE
-            request.method = 'DELETE'
-            controller.delete(null)
-
-        then:"A 404 is returned"
-            response.redirectedUrl == '/home/index'
-            flash.message != null
-
-        when:"A domain instance is created"
-            response.reset()
-            populateValidParams(params)
-            def home = new Home(params).save(flush: true)
-
-        then:"It exists"
-            Home.count() == 1
-
-        when:"The domain instance is passed to the delete action"
-            controller.delete(home)
-
-        then:"The instance is deleted"
-            Home.count() == 0
-            response.redirectedUrl == '/home/index'
-            flash.message != null
-    }
 }
