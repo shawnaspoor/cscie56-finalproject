@@ -47,7 +47,7 @@
       <file leaf-file-name="HomeControllerSpec.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/unit/com/propertyconnection/HomeControllerSpec.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21368715" vertical-offset="255" max-vertical-offset="1989">
+            <state vertical-scroll-proportion="0.5698324" vertical-offset="0" max-vertical-offset="1989">
               <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
               <folding />
             </state>
@@ -678,12 +678,12 @@
       <workItem from="1418469327184" duration="33708000" />
       <workItem from="1418894884715" duration="5089000" />
       <workItem from="1419166887378" duration="19095000" />
-      <workItem from="1419204590523" duration="80427000" />
+      <workItem from="1419204590523" duration="81296000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="268302000" />
+    <option name="totallyTimeSpent" value="269171000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1928" y="0" width="1358" height="1080" extended-state="0" />
@@ -1168,7 +1168,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/unit/com/propertyconnection/HomeControllerSpec.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21368715" vertical-offset="255" max-vertical-offset="1989">
+        <state vertical-scroll-proportion="0.5698324" vertical-offset="0" max-vertical-offset="1989">
           <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
           <folding />
         </state>
