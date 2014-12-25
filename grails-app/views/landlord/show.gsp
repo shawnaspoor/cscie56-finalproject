@@ -29,7 +29,7 @@
 				<li class="fieldcontain">
 					<span id="password-label" class="property-label"><g:message code="landlord.password.label" default="Password" /></span>
 					
-						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${landlordInstance}" field="password"/></span>
+						<span class="property-value" aria-labelledby="password-label"> <g:hiddenField name="password" bean="${landlordInstance}" field="password"/>*****</span>
 					
 				</li>
 				</g:if>

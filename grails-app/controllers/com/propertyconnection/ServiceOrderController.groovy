@@ -8,7 +8,7 @@ class ServiceOrderController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
     def serviceOrderService
-
+    def springSecurityService
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ServiceOrder.list(params), model:[serviceOrderInstanceCount: ServiceOrder.count()]

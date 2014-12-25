@@ -2,8 +2,6 @@ package com.propertyconnection
 
 class User {
 
-    transient springSecurityService
-
     String loginId
     String password
     Date dateCreated
@@ -16,7 +14,6 @@ class User {
 
     static constraints = {
         loginId  size: 3..20, blank: false, unique: true
-        password blank: false
         dateCreated nullable: true
     }
 
@@ -25,13 +22,11 @@ class User {
     }
 
     Set<Role> getAuthorities() {
-        UserRole.findAllByUser(this).collect { it.role }
+        UserRole.findAllByUser(this).collect { it.role } as Set
     }
 
     String toString() {return "User $loginId (id: $id)"}
     String getDisplayString(){return loginId}
 
-    protected void encodePassword() {
-        password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-    }
+
 }

@@ -1,12 +1,10 @@
-import com.propertyconnection.Home
-import com.propertyconnection.Landlord
-import com.propertyconnection.Payment
-import com.propertyconnection.ServiceOrder
-import com.propertyconnection.Tenant
-import com.propertyconnection.User
-import grails.plugin.cache.SerializableByteArrayOutputStream
+import com.propertyconnection.*
+
 
 class BootStrap {
+
+    def springSecurityService
+
     def init = { servletContext ->
         environments {
             development {
@@ -34,7 +32,7 @@ class BootStrap {
                 loginId:'WomTalker',
                 email: 'tomwalker@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
         ).save(failOnError: true)
 
         def dick = new Landlord(
@@ -43,7 +41,7 @@ class BootStrap {
                 loginId:'Dick',
                 email: 'dick@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
 
         ).save(failOnError: true)
@@ -54,7 +52,7 @@ class BootStrap {
                 loginId:'HarryTrotter',
                 email: 'harrytrotter@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
 
         ).save(failOnError: true)
@@ -65,7 +63,7 @@ class BootStrap {
                 loginId:'MaryWalker',
                 email: 'Marywalker@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
 
         ).save(failOnError: true)
@@ -76,7 +74,7 @@ class BootStrap {
                 loginId:'Susan',
                 email: 'susan@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
 
         ).save(failOnError: true)
@@ -87,7 +85,7 @@ class BootStrap {
                 loginId:'sally',
                 email: 'sally@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
         ).save(failOnError: true)
 
@@ -97,7 +95,7 @@ class BootStrap {
                 loginId:'marcussmith',
                 email: 'marcussmith@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
         ).save(failOnError: true)
 
@@ -107,7 +105,7 @@ class BootStrap {
                 loginId:'djohnson',
                 email: 'djohnson@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
         ).save(failOnError: true)
 
@@ -117,7 +115,7 @@ class BootStrap {
                 loginId:'johnmalbec',
                 email: 'johnmalbec@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
         ).save(failOnError: true)
 
@@ -127,7 +125,7 @@ class BootStrap {
                 loginId:'areeves',
                 email: 'andrewreeves@gmail.com',
                 dateCreated: now,
-                password: 'Password1'
+                password: springSecurityService.encodePassword('Password1')
 
         ).save(failOnError: true)
 
@@ -258,7 +256,10 @@ class BootStrap {
     private createAdminUserIfRequired() {
         if (!User.findByLoginId("admin")) {
             println "Fresh Database. Creating ADMIN user."
-            new User(loginId: "admin", password: "password1").save(failOnError: true)
+            def adminRole = new Role (authority: "ROLE_ADMIN").save(failOnError: true)
+            def adminUser = new User(loginId: "admin", password: springSecurityService.encodePassword('Password1'),
+            enabled: true).save(failOnError: true)
+            UserRole.create adminUser, adminRole
         }
         else {
             println "Existing admin user, skipping creation"

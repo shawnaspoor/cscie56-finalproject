@@ -16,7 +16,7 @@
 		<g:message code="landlord.password.label" default="Password" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="password" required="" value="${landlordInstance?.password}"/>
+    <g:passwordField name="password" required="" type="password" value="${landlordInstance?.password}"  />
 
 </div>
 

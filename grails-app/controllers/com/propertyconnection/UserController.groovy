@@ -2,10 +2,26 @@ package com.propertyconnection
 
 class UserController {
     static scaffold = true
-
+    def springSecurityService
     def mailService
 
+    def typeOfUser(){
+        def user = springSecurityService.currentUser
+        def id = user.id
+        println user
+        if(user){
+            def landlord = Landlord.findById(id)
+            if(landlord){
+                return landlord
+            }else{
+                def tenant = Tenant.findById(id)
+                if(tenant){
+                    return tenant
+                }
+            }
+        }
 
+    }
 
     def register(UserRegistrationCommand urc) {
         if(urc.hasErrors()) {
@@ -15,7 +31,9 @@ class UserController {
             if (params.selection =="Landlord")
             {
                 def landlord = new Landlord(urc.properties)
-                if(landlord.validate() && landlord.save()) {
+                landlord.password = springSecurityService.encodePassword(urc.properties.password)
+                if(landlord.validate()) {
+                    landlord.save()
                     flash.message="Welcome to Property Connection ${urc.firstName ?: urc.loginId}"
                     redirect(uri:'/')
                 }else{
@@ -24,7 +42,9 @@ class UserController {
             }else{
 
                 def tenant = new Tenant(urc.properties)
-                if(tenant.validate() && tenant.save()) {
+                tenant.password = springSecurityService.encodePassword(urc.properties.password)
+                if(tenant.validate()) {
+                    tenant.save()
                     flash.message="Welcome to Property Connection ${urc.firstName ?: urc.loginId}"
                     redirect(uri:'/')
                 }else{

@@ -11,6 +11,7 @@ class HomeController {
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def homeService
+    def springSecurityService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
